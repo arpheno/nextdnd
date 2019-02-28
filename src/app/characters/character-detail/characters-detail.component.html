@@ -1,0 +1,61 @@
+<div style="display: flex;flex-direction: column">
+  <mat-form-field>
+    <input [(ngModel)]="character.name" matInput placeholder="name" type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.race" matInput placeholder="Race" type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.category" matInput placeholder="Class" type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.alignment" matInput placeholder="alignment" type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.level" matInput placeholder="level" type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.experience" matInput placeholder="experience" type="number">
+  </mat-form-field>
+  <mat-form-field>
+    <input [(ngModel)]="character.gold" matInput placeholder="gold" type="number">
+  </mat-form-field>
+  <div>
+    <mat-form-field *ngFor="let attr of character.scores | keyvalue">
+      <input [(ngModel)]="character.scores[attr.key]" [placeholder]="attr.key" matInput type="number">
+    </mat-form-field>
+
+  </div>
+  <button (click)="updateCharacter(character)" mat-button>Update</button>
+</div>
+<div>
+  <div *ngFor="let level of levels">
+    <h3>Level {{level.level}}</h3>
+    <h4>Features</h4>
+
+    <div style="display: flex">
+      <div *ngFor="let feature of level.features">
+        <h5 [mdePopoverTriggerFor]="featurepop" mdePopoverTriggerOn="hover">{{feature.name}}</h5>
+        <mde-popover #featurepop="mdePopover" [mdePopoverOverlapTrigger]="false">
+          <mat-card>
+
+            <p *ngFor="let d of feature.desc">{{d}}</p>
+          </mat-card>
+        </mde-popover>
+      </div>
+    </div>
+
+    <div style="display: flex">
+      <div *ngFor="let feature of level.feature_choices">
+        <h5 [mdePopoverTriggerFor]="featurepop" mdePopoverTriggerOn="hover">{{feature.name}}</h5>
+        <mde-popover #featurepop="mdePopover" [mdePopoverOverlapTrigger]="false">
+          <mat-card>
+
+            <p *ngFor="let d of feature.desc">{{d}}</p>
+          </mat-card>
+        </mde-popover>
+      </div>
+    </div>
+
+  </div>
+</div>

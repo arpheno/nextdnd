@@ -1,0 +1,144 @@
+.selected_target {
+  background-color: #ff96a4;
+}
+
+mat-form-field {
+  width: 40px !important;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.mat-expansion-panel-body {
+  display: flex;
+  flex-direction: column
+}
+
+app-trait {
+  display: block;
+}
+
+.member {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.Large {
+  width: 250px;
+  height: 250px
+}
+.Huge {
+  width: 375px;
+  height: 375px;
+}
+
+.Medium, .Small {
+  width: 125px;
+  height: 125px
+}
+
+.Aberration {
+
+}
+
+.Animal {
+}
+
+.Dragon {
+
+  background-image: url("http://localhost:8000/static/encounter/dragon.svg");
+
+  background-color: indianred;
+  color: white;
+}
+
+.Beast {
+  background-image: url("http://localhost:8000/static/encounter/beast.svg");
+  background-color: gray;
+  color: white;
+}
+
+.Construct {
+}
+
+.Deathless {
+}
+
+.Undead {
+  background-image: url("http://localhost:8000/static/encounter/undead.svg");
+  background-color: gray;
+  color: white;
+}
+
+.Fiend {
+}
+
+.Giant {
+  background-image: url("http://localhost:8000/static/encounter/giant.svg");
+  background-color: #60054e;
+  color: #003a75;
+}
+
+.Humanoid {
+  background-image: url("http://localhost:8000/static/encounter/humanoid.svg");
+  background-color: #046058;
+  color: white;
+}
+
+.Vermin {
+}
+
+.Plant {
+  background-image: url("http://localhost:8000/static/encounter/plant.svg");
+  background-color: #446007;
+  color: white;
+}
+
+.Shapechanger {
+
+  background-image: url("http://localhost:8000/static/encounter/shapechanger.svg");
+  background-color: #246060;
+  color: white;
+}
+
+.Outsider {
+}
+
+.Planetouched {
+}
+
+.Fey {
+  background-image: url("http://localhost:8000/static/encounter/fey.svg");
+  background-color: #60054e;
+  color: white;
+}
+
+.Ooze {
+
+  background-image: url("http://localhost:8000/static/encounter/ooze.svg");
+  background-color: #605c00;
+  color: white;
+}
+
+.Elemental {
+  background-image: url("http://localhost:8000/static/encounter/elemental.svg");
+  background-color: #601a04;
+  color: white;
+}
+.Celestial {
+  background-image: url("http://localhost:8000/static/encounter/celestial.svg");
+  background-color: #32677c;
+  color: white;
+}
+
+.Monstrosity {
+  background-image: url("http://localhost:8000/static/encounter/monstrosity.svg");
+  background-color: #7c3d29;
+  color: white;
+}

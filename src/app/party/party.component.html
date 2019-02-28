@@ -1,0 +1,67 @@
+<div class='party' style="display:flex;flex-wrap: wrap">
+  <div (onDragEnd)="appDragEnd(member,$event)"
+       (onDragStart)="appDragStart(member,$event)"
+       (onDrop)="dragAttack(member,$event)" *ngFor="let member of members"
+       [dragData]="member"
+       [ngClass]="[member.size,member.type]"
+       [ngStyle]="member.style"
+       class='member' draggable="true" droppable>
+    <div [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="hover">
+      {{ member.name }}
+    </div>
+    <div>
+      <mat-form-field>
+        <input [(ngModel)]="member.hp" matInput placeholder="HP" type="number">
+      </mat-form-field>
+
+
+      <mat-menu #saveMenu="matMenu">
+        <button (click)="member.roll_save(save)"
+                *ngFor="let save of ['str','dex','con','int','wis','cha']" mat-menu-item>
+          {{ save }}
+        </button>
+      </mat-menu>
+      <button [matMenuTriggerFor]="saveMenu" mat-icon-button>
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+
+    {{ member.roll }}
+
+    <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+      <mat-card>
+        <mat-card-content>
+          <div>
+            <mat-form-field>
+              <input [(ngModel)]="member.ac[0]" matInput placeholder="AC" type="number">
+            </mat-form-field>
+            <mat-form-field>
+              <input [(ngModel)]="member.initiative" matInput placeholder="Initiative" type="number">
+            </mat-form-field>
+          </div>
+          <div [hidden]="!member.traits">
+            <h4> Traits</h4>
+            <app-trait *ngFor="let t of member.traits" [t]="t"></app-trait>
+          </div>
+
+          <div [hidden]="!member.senses">
+            <h4> Senses</h4>
+            {{member.senses}}
+          </div>
+          <div>
+            <h4> Actions</h4>
+            <app-trait *ngFor="let t of member.actions" [t]="t"></app-trait>
+          </div>
+          <div>
+            <h4> Spells</h4>
+            <p *ngFor="let spell of member.spells">{{spell}}</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mde-popover>
+  </div>
+</div>
+<input type="text" [(ngModel)]="partyadd">
+<button (click)="addmember(partyadd)">Add member</button>
+Total xp
+

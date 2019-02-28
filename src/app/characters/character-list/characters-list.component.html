@@ -1,0 +1,7 @@
+<div>
+  <ul>
+    <li (click)="gotoCharacter(character)" *ngFor="let character of characters">{{character.name}}</li>
+  </ul>
+</div>
+<button (click)="newCharacter()">New Character</button>
+
