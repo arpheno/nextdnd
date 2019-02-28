@@ -1,0 +1,6 @@
+<div>
+  <ul>
+    <li (click)="gotoEncounter(encounter)" *ngFor="let encounter of encounters">{{encounter.id}}</li>
+  </ul>
+</div>
+<button (click)="newEncounter()">New Encounter</button>

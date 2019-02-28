@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {fabric} from 'fabric';
-import {EncounterService} from '../encounter.service';
+import {EncounterService} from '../../encounter.service';
 
 
 @Component({
@@ -12,9 +12,9 @@ export class KanvasComponent implements OnInit {
   private _canvas: fabric.Canvas;
   @Input()
   set canvas(c: any) {
-    if (c!='') {
-      console.log(c)
-      this._canvas.loadFromJSON(c, function() {
+    if (c != '') {
+      console.log(c);
+      this._canvas.loadFromJSON(c, () => {
         this._canvas.renderAll();
       }, function(o, object) {
         console.log(o, object);
@@ -25,6 +25,7 @@ export class KanvasComponent implements OnInit {
   get canvas(): any {
     return this._canvas;
   }
+
   @Output()
   canvasChange = new EventEmitter<any>();
 
@@ -57,7 +58,7 @@ export class KanvasComponent implements OnInit {
     });
     this.clear();
     fabric.Object.prototype.transparentCorners = false;
-    this._canvas.on('mouse:up',x=>this.canvasChange.emit(this._canvas));
+    this._canvas.on('mouse:up', x => this.canvasChange.emit(this._canvas));
 
   }
 

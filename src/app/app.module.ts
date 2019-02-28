@@ -8,42 +8,29 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatDialogModule,
   MatExpansionModule,
-  MatFormFieldModule,
-  MatIconModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatListModule,
-  MatMenuModule,
-  MatRadioModule,
+  MatMenuModule, MatRadioModule,
   MatSidenavModule,
   MatSnackBarModule,
   MatToolbarModule
 } from '@angular/material';
-import {PartyComponent} from './party/party.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
-import {EncounterComponent} from './encounter/encounter.component';
-import {TraitComponent} from './trait/trait.component';
 import {MonsterComponent} from './monster/monster.component';
-import {DragDropModule} from '@angular/cdk/drag-drop';
-import {NgDragDropModule} from 'ng-drag-drop';
 import {AttakComponent} from './attak/attak.component';
-import {MdePopoverModule} from '@material-extended/mde';
-import {KanvasComponent} from './kanvas/kanvas.component';
 import {WebsocketService} from './websocket.service';
 import {BoardServiceService} from './board-service.service';
 import {CharactersModule} from './characters/characters.module';
+import {EncountersModule} from './encounters/encounters.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PartyComponent,
-    EncounterComponent,
-    TraitComponent,
     MonsterComponent,
     AttakComponent,
-    KanvasComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,14 +49,11 @@ import {CharactersModule} from './characters/characters.module';
     FormsModule,
     MatCardModule,
     MatSnackBarModule,
-    DragDropModule,
-    NgDragDropModule.forRoot(),
-    MatDialogModule,
-    MatRadioModule,
-    MdePopoverModule,
-    MatIconModule,
     CharactersModule,
+    EncountersModule,
     AppRoutingModule,
+    MatIconModule,
+    MatRadioModule
   ],
   entryComponents: [AttakComponent],
   providers: [WebsocketService, BoardServiceService],

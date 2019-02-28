@@ -7,4 +7,7 @@
 
 
 <button (click)="build_random_encounter('Arctic',1)">Add random encounter</button>
+<input type="text" [(ngModel)]="partyadd">
+<button (click)="addmember(partyadd)">Add member</button>
+<button (click)="loadEncounter()">Load From Server</button>
 

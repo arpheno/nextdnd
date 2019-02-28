@@ -1,16 +1,16 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {EncounterComponent} from './encounter/encounter.component';
 
 const routes: Routes = [
-  {path: 'encounter', component: EncounterComponent},
   {path: '', redirectTo: '/characters', pathMatch: 'full'},
+  {path: '', redirectTo: '/encounters', pathMatch: 'full'},
 
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {enableTracing: true} // <-- debugging purposes only
+  )],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

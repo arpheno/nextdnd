@@ -1,9 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Monster} from '../api.service';
+import {Monster} from '../../api.service';
 import {MatDialog} from '@angular/material';
-import {AttakComponent} from '../attak/attak.component';
-import {BoardServiceService} from '../board-service.service';
-import {AUTHOR_ID} from '../utils';
+import {AttakComponent} from '../../attak/attak.component';
+import {BoardServiceService} from '../../board-service.service';
+import {AUTHOR_ID} from '../../utils';
 
 @Component({
   selector: 'app-party',
