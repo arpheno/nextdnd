@@ -12,6 +12,7 @@ import {AUTHOR_ID} from '../utils';
 })
 export class EncounterComponent implements OnInit {
   private encounters: Encounter[];
+  public canvas = '';
 
   constructor(private snackBar: MatSnackBar, private encounterService: EncounterService, private  apiService: APIService, private boardService: BoardServiceService) {
 
@@ -57,5 +58,14 @@ export class EncounterComponent implements OnInit {
     this.boardService.messages.next({members: this.members, author: AUTHOR_ID});
   }
 
+  serialize() {
+    const serialized = JSON.stringify(this.canvas);
+    console.log(serialized);
+    this.encounterService.saveEncounter(this.members, serialized).subscribe();
+  }
 
+  canvasChange(event: any) {
+    const serialized = JSON.stringify(event);
+    console.log(serialized);
+  }
 }

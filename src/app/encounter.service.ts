@@ -30,4 +30,8 @@ export class EncounterService {
       }));
   }
 
+  saveEncounter(members, map): Observable<Encounter> {
+    return this.httpClient.post(`${this.API_URL}/api/encounters/`, {members: members, map: map});
+  }
+
 }
