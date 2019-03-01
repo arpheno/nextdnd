@@ -1,6 +1,6 @@
 <button (click)="serialize()" class="btn btn-info">serialize</button>
 <app-kanvas [canvas]="canvas" (canvasChange)="canvasChange($event)"></app-kanvas>
-<app-party [(members)]="members"></app-party>
+<app-party [(members)]="members" (membersChange)="memberChange($event)"></app-party>
 <div *ngFor="let encounter of encounters">
   <span *ngFor="let member of encounter.members" (click)="selectEncounter(encounter)">{{member}}</span>
 </div>

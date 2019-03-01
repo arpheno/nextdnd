@@ -12,13 +12,25 @@ export class KanvasComponent implements OnInit {
   private _canvas: fabric.Canvas;
   @Input()
   set canvas(c: any) {
-    if (c != '') {
-      console.log(c);
-      this._canvas.loadFromJSON(c, () => {
-        this._canvas.renderAll();
-      }, function(o, object) {
-        console.log(o, object);
-      });
+    if (c === this._canvas) {
+
+    } else {
+      if (c != '') {
+        try {
+          this._canvas.loadFromJSON(c, () => {
+            this._canvas.renderAll();
+            console.log('rendered');
+            console.log(c);
+            console.log(typeof (c));
+          });
+        } catch (e) {
+          console.log('Got canvas');
+          console.log(c);
+          console.log(typeof (c));
+          this._canvas = c;
+          this._canvas.renderAll();
+        }
+      }
     }
   }
 

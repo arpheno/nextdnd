@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {WebsocketService} from './websocket.service';
 import {Subject} from 'rxjs';
 import {Monster} from './api.service';
-import {AUTHOR_ID} from './utils';
 
 
 export interface Message {
@@ -23,6 +22,8 @@ export class BoardServiceService {
         return {
           members: data.members,
           author: data.author,
+          map: data.map,
+          encounterID: data.encounterID,
         };
       });
   }

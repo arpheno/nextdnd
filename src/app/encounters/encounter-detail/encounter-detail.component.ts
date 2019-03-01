@@ -25,8 +25,10 @@ export class EncounterDetailComponent implements OnInit {
 
     this.boardService.messages.subscribe(msg => {
       console.log(msg);
-      if (msg.author !== AUTHOR_ID) {
+      if (msg.author !== AUTHOR_ID && msg.encounterID === this.id) {
+        console.log("REACTING")
         this.members = msg.members;
+        this.canvas = msg.map;
       }
     });
   }
@@ -57,8 +59,7 @@ export class EncounterDetailComponent implements OnInit {
   ngOnInit() {
     this.encounters = [];
     this.id = this.route.snapshot.paramMap.get('id');
-
-
+    this.loadEncounter();
   }
 
   sendMsg() {
@@ -71,10 +72,20 @@ export class EncounterDetailComponent implements OnInit {
     console.log(serialized);
   }
 
-  canvasChange(event: any) {
-    const serialized = JSON.stringify(event);
-    console.log(serialized);
-    this.encounterService.updateEncounter(this.id, this.members, serialized).subscribe();
+  canvasChange(can: any) {
+    console.log('asd');
+    this.canvas = can;
+    this.updateEncounter();
+  }
+
+  memberChange(members: any) {
+    this.members = members;
+    this.updateEncounter();
+  }
+
+  updateEncounter() {
+    this.encounterService.updateEncounter(this.id, this.members, this.canvas).subscribe();
+    this.boardService.messages.next({encounterID: this.id, members: this.members, author: AUTHOR_ID, map: this.canvas});
   }
 
   loadEncounter() {
@@ -85,7 +96,7 @@ export class EncounterDetailComponent implements OnInit {
     };
     this.encounterService.getEncounter(this.id).subscribe(encounter => {
       console.log(encounter.members.replaceAll('\'', '"'));
-      if (encounter.map!='') {
+      if (encounter.map != '') {
         this.members = JSON.parse(encounter.members.replaceAll('\'', '"'));
         console.log(this.canvas);
         this.canvas = JSON.parse(encounter.map);

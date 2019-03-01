@@ -34,6 +34,7 @@ export class EncounterService {
     return this.httpClient.post(`${this.API_URL}/api/encounters/`, {members: members, map: map});
   }
   updateEncounter(id,members, map): Observable<Encounter> {
+    let map=JSON.stringify(map);
     return this.httpClient.put(`${this.API_URL}/api/encounters/${id}/`, {members: members, map: map});
   }
 
