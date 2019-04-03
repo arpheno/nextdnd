@@ -5,8 +5,10 @@ import {Monster} from './api.service';
 
 
 export interface Message {
-  members: Monster[],
-  author: string
+  members: Monster[];
+  author: string;
+  encounterID: number;
+  map: string;
 }
 
 @Injectable()

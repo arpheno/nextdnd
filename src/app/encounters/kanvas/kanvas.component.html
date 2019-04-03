@@ -19,6 +19,7 @@
 
         <label for="drawing-color">Line color:</label>
         <input [(ngModel)]="canvas.freeDrawingBrush.color" id="drawing-color" type="color" value="#005E7A"><br>
+        <button (click)="canvas.isDrawingMode=!canvas.isDrawingMode">Toggle drawing</button>
 
       </div>
     </div>

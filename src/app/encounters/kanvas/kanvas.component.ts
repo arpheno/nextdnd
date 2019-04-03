@@ -19,7 +19,6 @@ export class KanvasComponent implements OnInit {
         try {
           this._canvas.loadFromJSON(c, () => {
             this._canvas.renderAll();
-            console.log('rendered');
             console.log(c);
             console.log(typeof (c));
           });
@@ -44,7 +43,8 @@ export class KanvasComponent implements OnInit {
 
   makeLine(startX: number, startY: number, endX: number, endY: number): fabric.Line {
     return new fabric.Line([startX, startY, endX, endY], {
-      stroke: 'gray'
+      stroke: 'gray',
+      selectable: false
     });
   }
 
@@ -77,6 +77,7 @@ export class KanvasComponent implements OnInit {
   clear() {
     this._canvas.clear();
     this.makeGrid(2000, 1000, 125).forEach(line => this._canvas.add(line));
+    console.log(this._canvas);
   }
 
 
