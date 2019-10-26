@@ -8,6 +8,7 @@ const attribute_to_ability = {'str': 0, 'dex': 1, 'con': 2, 'int': 3, 'wis': 4, 
 
 export class Monster {
   public damage_resistances = '';
+  initiative: any;
 
   constructor(
     public roll: number,
@@ -66,6 +67,7 @@ export class Monster {
 })
 export class APIService {
   API_URL = `http://${window.location.hostname}:8000`;
+  ASD = 5;
 
   constructor(private  httpClient: HttpClient) {
   }

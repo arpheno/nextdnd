@@ -84,7 +84,6 @@ export class PartyComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('aa');
 
   }
 

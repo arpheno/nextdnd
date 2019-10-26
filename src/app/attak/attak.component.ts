@@ -9,7 +9,7 @@ import {execute_attack} from '../utils';
 })
 export class AttakComponent implements OnInit {
   selectedAttack: any;
-  advantage: number = 0;
+  advantage = 0;
 
 
   constructor(
@@ -19,7 +19,7 @@ export class AttakComponent implements OnInit {
   }
 
   onYesClick(target, attack): void {
-    let message = execute_attack(target, attack, this.advantage);
+    const message = execute_attack(target, attack, this.advantage);
 
     this.snackBar.open(message);
     this.dialogRef.close();
@@ -30,7 +30,6 @@ export class AttakComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.data);
     this.selectedAttack = this.data.attacker.attacks[0];
   }
 

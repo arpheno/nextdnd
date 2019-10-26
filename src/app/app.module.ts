@@ -10,12 +10,13 @@ import {
   MatCheckboxModule,
   MatExpansionModule,
   MatFormFieldModule, MatIconModule,
+  MatButtonToggleModule,
   MatInputModule,
   MatListModule,
   MatMenuModule, MatRadioModule,
   MatSidenavModule,
   MatSnackBarModule,
-  MatToolbarModule
+  MatToolbarModule, MatSliderModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
@@ -25,12 +26,20 @@ import {WebsocketService} from './websocket.service';
 import {BoardServiceService} from './board-service.service';
 import {CharactersModule} from './characters/characters.module';
 import {EncountersModule} from './encounters/encounters.module';
+import { PriceidComponent } from './priceid/priceid.component';
+import { FretboardComponent } from './fretboard/fretboard.component';
+import { MetronomeComponent } from './metronome/metronome.component';
+import { UiComponent } from './ui/ui.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MonsterComponent,
     AttakComponent,
+    PriceidComponent,
+    FretboardComponent,
+    MetronomeComponent,
+    UiComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +62,9 @@ import {EncountersModule} from './encounters/encounters.module';
     EncountersModule,
     AppRoutingModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    MatButtonToggleModule,
+    MatSliderModule
   ],
   entryComponents: [AttakComponent],
   providers: [WebsocketService, BoardServiceService],

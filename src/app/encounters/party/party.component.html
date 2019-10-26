@@ -5,6 +5,7 @@
        [dragData]="member"
        [ngClass]="[member.size,member.type]"
        [ngStyle]="member.style"
+       [hidden]="member.hp<=0"
        class='member' draggable="true" droppable>
     <div [mdePopoverTriggerFor]="appPopover" mdePopoverTriggerOn="hover">
       {{ member.name }}

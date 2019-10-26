@@ -23,4 +23,12 @@ export class EncounterListComponent implements OnInit {
   gotoEncounter(encounter: any) {
     this.router.navigate(['/encounters', encounter.id]);
   }
+
+  newEncounter() {
+    this.encounterService.saveEncounter([], '').subscribe(
+      next => {
+        this.encounters.push('');
+      }
+    );
+  }
 }

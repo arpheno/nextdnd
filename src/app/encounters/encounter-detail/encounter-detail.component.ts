@@ -26,7 +26,7 @@ export class EncounterDetailComponent implements OnInit {
     this.boardService.messages.subscribe(msg => {
       console.log(msg);
       if (msg.author !== AUTHOR_ID && msg.encounterID === this.id) {
-        console.log("REACTING")
+        console.log('REACTING');
         this.members = msg.members;
         this.canvas = msg.map;
       }
@@ -91,14 +91,12 @@ export class EncounterDetailComponent implements OnInit {
   loadEncounter() {
 
     String.prototype.replaceAll = function(search, replacement) {
-      var target = this;
+      let target = this;
       return target.replace(new RegExp(search, 'g'), replacement);
     };
     this.encounterService.getEncounter(this.id).subscribe(encounter => {
-      console.log(encounter.members.replaceAll('\'', '"'));
       if (encounter.map != '') {
-        this.members = JSON.parse(encounter.members.replaceAll('\'', '"'));
-        console.log(this.canvas);
+        this.members = JSON.parse(encounter.members);
         this.canvas = JSON.parse(encounter.map);
       } else {
         this.addmember('Goblin');

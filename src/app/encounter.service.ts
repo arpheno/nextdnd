@@ -5,7 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {APIService} from './api.service';
 
 export class Encounter {
-  constructor(public members: string[]) {
+  constructor(public members: string[], public map: string[]) {
   }
 }
 
@@ -31,16 +31,18 @@ export class EncounterService {
   }
 
   saveEncounter(members, map): Observable<Encounter> {
-    return this.httpClient.post(`${this.API_URL}/api/encounters/`, {members: members, map: map});
+    return this.httpClient.post(`${this.API_URL}/api/encounters/`, {members, map});
   }
-  updateEncounter(id,members, map): Observable<Encounter> {
-    let map=JSON.stringify(map);
-    return this.httpClient.put(`${this.API_URL}/api/encounters/${id}/`, {members: members, map: map});
+
+  updateEncounter(id, members, map): Observable<Encounter> {
+    const mapp = JSON.stringify(map);
+    return this.httpClient.put(`${this.API_URL}/api/encounters/${id}/`, {members, map: mapp});
   }
 
   getEncounters() {
     return this.httpClient.get<Encounter[]>(`${this.API_URL}/api/encounters/`);
   }
+
   getEncounter(id) {
     return this.httpClient.get<Encounter>(`${this.API_URL}/api/encounters/${id}/`);
   }

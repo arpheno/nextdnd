@@ -37,6 +37,8 @@ export class CharactersListComponent implements OnInit {
       alignment: 'neutral neutral',
       size: 'Medium',
       monster_type: 'Humanoid',
+      experience: 0,
+      gold: 0,
       speed: 30,
       level: 1,
       description: 'description',

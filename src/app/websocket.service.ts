@@ -21,7 +21,7 @@ export class WebsocketService {
   }
 
   private create(url): Rx.Subject<MessageEvent> {
-    let ws = new WebSocket(url);
+    const ws = new WebSocket(url);
 
     const observable = Rx.Observable.create(
       (obs: Rx.Observer<MessageEvent>) => {
@@ -30,7 +30,7 @@ export class WebsocketService {
         ws.onclose = obs.complete.bind(obs);
         return ws.close.bind(ws);
       });
-    let observer = {
+    const observer = {
       next: (data: Object) => {
         if (ws.readyState === WebSocket.OPEN) {
           ws.send(JSON.stringify(data));

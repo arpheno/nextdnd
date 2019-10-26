@@ -24,13 +24,17 @@
     "@independer/ng-tooltip": "^1.1.5",
     "@material-extended/mde": "^2.1.1",
     "@ng-bootstrap/ng-bootstrap": "^4.0.4",
+    "accurate-interval": "^1.0.9",
     "core-js": "^2.5.4",
     "fabric": "^2.6.0",
     "ng-drag-drop": "^5.0.0",
     "ngx-tooltip": "0.0.9",
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.4.0",
+    "tone": "^13.4.9",
     "tslib": "^1.9.0",
+    "webpack": "^4.35.3",
+    "webpack-dev-server": "^3.7.2",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
