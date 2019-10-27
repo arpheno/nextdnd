@@ -12,7 +12,6 @@ import {ActivatedRoute, Router} from '@angular/router';
   styleUrls: ['./encounter-detail.component.scss']
 })
 export class EncounterDetailComponent implements OnInit {
-  private encounters: Encounter[];
   public canvas = '';
   private id: any;
 
@@ -36,19 +35,6 @@ export class EncounterDetailComponent implements OnInit {
   public members = [];
   partyadd: any;
 
-  build_random_encounter(biome, difficulty) {
-    this.encounterService.random_encounter(biome, difficulty).subscribe(next => {
-      this.encounters.push(next);
-      console.log(this.encounters);
-    });
-  }
-
-  selectEncounter(encounter: Encounter) {
-    this.members = [];
-    encounter.members.forEach(x => {
-      this.addmember(x);
-    });
-  }
 
   addmember(partyadd) {
     this.apiService.monsterDetail(partyadd).subscribe(next => {
@@ -57,15 +43,10 @@ export class EncounterDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.encounters = [];
     this.id = this.route.snapshot.paramMap.get('id');
     this.loadEncounter();
   }
 
-  sendMsg() {
-    console.log('new message from client to websocket: ', this.members);
-    this.boardService.messages.next({members: this.members, author: AUTHOR_ID});
-  }
 
   serialize() {
     const serialized = JSON.stringify(this.canvas);
@@ -73,7 +54,6 @@ export class EncounterDetailComponent implements OnInit {
   }
 
   canvasChange(can: any) {
-    console.log('asd');
     this.canvas = can;
     this.updateEncounter();
   }
@@ -90,19 +70,9 @@ export class EncounterDetailComponent implements OnInit {
 
   loadEncounter() {
 
-    String.prototype.replaceAll = function(search, replacement) {
-      let target = this;
-      return target.replace(new RegExp(search, 'g'), replacement);
-    };
     this.encounterService.getEncounter(this.id).subscribe(encounter => {
-      if (encounter.map != '') {
-        this.members = JSON.parse(encounter.members);
-        this.canvas = JSON.parse(encounter.map);
-      } else {
-        this.addmember('Goblin');
-        this.addmember('Lich');
-        this.addmember('Owlbear');
-      }
+        this.members = encounter.members;
+        this.canvas = encounter.map;
     });
   }
 }

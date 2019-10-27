@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {EncounterService} from '../../encounter.service';
+import {Encounter, EncounterService} from '../../encounter.service';
 
 @Component({
   selector: 'app-encounter-list',
@@ -8,7 +8,7 @@ import {EncounterService} from '../../encounter.service';
   styleUrls: ['./encounter-list.component.scss']
 })
 export class EncounterListComponent implements OnInit {
-  private encounters: any;
+  private encounters: Encounter[];
 
   constructor(private router: Router, private encounterService: EncounterService) {
   }
@@ -24,10 +24,19 @@ export class EncounterListComponent implements OnInit {
     this.router.navigate(['/encounters', encounter.id]);
   }
 
+  build_random_encounter(biome, difficulty) {
+    this.encounterService.random_encounter(biome, difficulty).subscribe(next => {
+
+      this.encounters.push(next);
+      console.log(this.encounters);
+    });
+  }
+
+
   newEncounter() {
     this.encounterService.saveEncounter([], '').subscribe(
       next => {
-        this.encounters.push('');
+        this.encounters.push(new Encounter([],''));
       }
     );
   }

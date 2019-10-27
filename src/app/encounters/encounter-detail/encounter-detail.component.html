@@ -1,12 +1,7 @@
 <button (click)="serialize()" class="btn btn-info">serialize</button>
 <app-kanvas [canvas]="canvas" (canvasChange)="canvasChange($event)"></app-kanvas>
 <app-party [(members)]="members" (membersChange)="memberChange($event)"></app-party>
-<div *ngFor="let encounter of encounters">
-  <span *ngFor="let member of encounter.members" (click)="selectEncounter(encounter)">{{member}}</span>
-</div>
 
-
-<button (click)="build_random_encounter('Arctic',1)">Add random encounter</button>
 
 <input type="text" [(ngModel)]="partyadd">
 <button (click)="addmember(partyadd)">Add member</button>

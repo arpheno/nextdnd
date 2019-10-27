@@ -25,6 +25,7 @@ export class CharactersDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    // @ts-ignore
     this.character = {};
     this.levels = [];
     let id = this.route.snapshot.paramMap.get('id');
