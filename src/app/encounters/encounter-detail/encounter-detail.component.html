@@ -1,9 +1,9 @@
 <button (click)="serialize()" class="btn btn-info">serialize</button>
 <app-kanvas [canvas]="canvas" (canvasChange)="canvasChange($event)"></app-kanvas>
 <app-party [(members)]="members" (membersChange)="memberChange($event)"></app-party>
+<app-party [(members)]="players" (membersChange)="playerChange($event)"></app-party>
 
 
 <input type="text" [(ngModel)]="partyadd">
 <button (click)="addmember(partyadd)">Add member</button>
-<button (click)="loadEncounter()">Load From Server</button>
 

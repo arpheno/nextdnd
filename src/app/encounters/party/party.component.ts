@@ -26,6 +26,7 @@ export class PartyComponent implements OnInit {
   @Input()
   set members(t) {
     this._members = t;
+    console.log(t);
   }
 
   @Output()
@@ -79,7 +80,6 @@ export class PartyComponent implements OnInit {
       let left = element.origin_x + diff_x;
       element.style = {top: top + 'px', left: left + 'px', position: 'fixed'};
       this.membersChange.emit(this.members);
-      // this.boardService.messages.next({members: this.members, author: AUTHOR_ID});
     }
   }
 

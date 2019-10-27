@@ -18,4 +18,9 @@ export class Character {
     public gold: number,
     public experience: number) {
   }
+
+  public ac() {
+    return this.scores[1];
+
+  }
 }

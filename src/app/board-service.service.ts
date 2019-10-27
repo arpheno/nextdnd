@@ -9,6 +9,7 @@ export interface Message {
   author: string;
   encounterID: number;
   map: string;
+  players: [],
 }
 
 @Injectable()
@@ -23,6 +24,7 @@ export class BoardServiceService {
         let data = JSON.parse(response.data);
         return {
           members: data.members,
+          players: data.players,
           author: data.author,
           map: data.map,
           encounterID: data.encounterID,

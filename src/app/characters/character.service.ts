@@ -30,6 +30,7 @@ export class CharacterService {
   characterDetail(monster): Observable<Character> {
     return this.httpClient.get<Character>(`${this.API_URL}/${monster}/`).pipe(
       map(mon => {
+          // @ts-ignore
           let m = Object.assign(new Character, mon);
           console.log(m);
           return m;

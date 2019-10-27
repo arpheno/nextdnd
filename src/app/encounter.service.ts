@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
-import {Observable} from 'rxjs';
+import {forkJoin, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {APIService} from './api.service';
 
@@ -21,7 +21,7 @@ export class EncounterService {
 
 
   random_encounter(biome, difficulty): Observable<Encounter> {
-    return this.httpClient.get<string[]>(`${this.API_URL}/random_encounter/${biome}/${difficulty}`).pipe(
+    let res =  this.httpClient.get<string[]>(`${this.API_URL}/random_encounter/${biome}/${difficulty}`).pipe(
       map(next => {
         console.log('!');
         console.log(next);
@@ -30,7 +30,7 @@ export class EncounterService {
           observables.push(this.apiService.monsterDetail(monster));
         });
         let enc = new Encounter({}, '', 99);
-        let obs = Observable.forkJoin(observables).subscribe(members => {
+        let obs = forkJoin(observables).subscribe(members => {
           console.log('setting members');
           console.log(members);
           this.saveEncounter(members, '').subscribe(next => {
@@ -42,6 +42,7 @@ export class EncounterService {
         });
         return enc;
       }));
+    return res;
   }
 
   saveEncounter(members, mapp): Observable<Encounter> {
