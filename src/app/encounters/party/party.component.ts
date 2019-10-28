@@ -67,7 +67,6 @@ export class PartyComponent implements OnInit {
   appDragEnd(element, event: DragEvent) {
     let overlap = false;
     document.elementsFromPoint(event.x, event.y).forEach(element => {
-      console.log(element.classList);
       if (element.classList.contains('member')) {
         overlap = true;
       }

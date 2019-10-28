@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EncounterService } from './encounter.service';
+import { EncounterService } from './encounters/encounter.service';
 
 describe('EncounterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

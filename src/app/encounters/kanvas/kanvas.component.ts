@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {fabric} from 'fabric';
-import {EncounterService} from '../../encounter.service';
+import {EncounterService} from '../encounter.service';
 
 
 @Component({
@@ -19,8 +19,6 @@ export class KanvasComponent implements OnInit {
         try {
           this._canvas.loadFromJSON(c, () => {
             this._canvas.renderAll();
-            console.log(c);
-            console.log(typeof (c));
           });
         } catch (e) {
           console.log('Got canvas');
@@ -77,7 +75,6 @@ export class KanvasComponent implements OnInit {
   clear() {
     this._canvas.clear();
     this.makeGrid(2000, 1000, 125).forEach(line => this._canvas.add(line));
-    console.log(this._canvas);
   }
 
 

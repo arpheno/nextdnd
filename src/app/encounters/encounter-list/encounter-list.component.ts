@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {Encounter, EncounterService} from '../../encounter.service';
+import {EncounterService} from '../encounter.service';
+import {Encounter} from '../encounter.models';
 
 @Component({
   selector: 'app-encounter-list',
@@ -33,10 +34,10 @@ export class EncounterListComponent implements OnInit {
   }
 
 
-  newEncounter() {
+  newEnconter() {
     this.encounterService.saveEncounter([], '').subscribe(
       next => {
-        this.encounters.push(new Encounter([],''));
+        this.encounters.push(new Encounter([], '', next.id, []));
       }
     );
   }

@@ -9,7 +9,7 @@ export interface Message {
   author: string;
   encounterID: number;
   map: string;
-  players: [],
+  players: Monster[],
 }
 
 @Injectable()

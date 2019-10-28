@@ -1,13 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {MatSnackBar} from '@angular/material';
-import {APIService} from '../../api.service';
+import {APIService, Monster} from '../../api.service';
 import {BoardServiceService} from '../../board-service.service';
-import {Encounter, EncounterService} from '../../encounter.service';
+import {EncounterService} from '../encounter.service';
 import {AUTHOR_ID} from '../../utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CharacterService} from '../../characters/character.service';
 import {Character} from '../../characters/character.model';
 import {forEach} from '@angular/router/src/utils/collection';
+import {Encounter} from '../encounter.models';
 
 @Component({
   selector: 'app-encounter',
@@ -27,7 +28,6 @@ export class EncounterDetailComponent implements OnInit {
               private boardService: BoardServiceService) {
 
     this.boardService.messages.subscribe(msg => {
-      console.log(msg);
       if (msg.author !== AUTHOR_ID && msg.encounterID === this.id) {
         console.log('REACTING');
         this.members = msg.members;
@@ -39,7 +39,7 @@ export class EncounterDetailComponent implements OnInit {
 
   public members = [];
   partyadd: any;
-  players: Character[];
+  players: Monster[];
 
 
   addmember(partyadd) {
@@ -51,7 +51,7 @@ export class EncounterDetailComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.loadEncounter();
-    this.loadPlayers();
+    console.log(this.players);
   }
 
 
@@ -65,9 +65,17 @@ export class EncounterDetailComponent implements OnInit {
     this.updateEncounter();
   }
 
-  memberChange(members: any) {
+  memberChange(members: Monster[]) {
     this.members = members;
     this.updateEncounter();
+    const all_enemies_dead = this.members.every(x => {
+      return x.hp <= 0;
+    });
+    if (all_enemies_dead) {
+      alert('victory!');
+      this.award_experience();
+
+    }
   }
 
   playerChange(players: any) {
@@ -90,6 +98,10 @@ export class EncounterDetailComponent implements OnInit {
     this.encounterService.getEncounter(this.id).subscribe(encounter => {
       this.members = encounter.members;
       this.canvas = encounter.map;
+      this.players = encounter.players;
+      if (this.players.length == 0) {
+        this.loadPlayers();
+      }
     });
   }
 
@@ -98,7 +110,6 @@ export class EncounterDetailComponent implements OnInit {
     this.characterService.listCharacters().subscribe(players => {
       let _players = [];// This is necessary to trigger the data binding...
 
-      console.log(players);
       players.forEach(player => {
         _players.push({
           ac: [10, 1],// TODO: Implement from server side
@@ -122,5 +133,20 @@ export class EncounterDetailComponent implements OnInit {
       });
     });
 
+  }
+
+  private award_experience() {
+    const total_xp: number = this.members.reduce((a, b) => {
+      return a + b.xp;
+    },0);
+    const xp_per_player = Math.round(total_xp / this.players.length);
+    this.players.forEach(player => {
+        this.characterService.characterDetail(player.id).subscribe(next => {
+          next.experience += xp_per_player;
+          console.log(xp_per_player);
+          this.characterService.characterUpdate(next).subscribe();
+        });
+      }
+    );
   }
 }

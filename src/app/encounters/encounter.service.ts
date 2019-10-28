@@ -2,12 +2,8 @@ import {Injectable} from '@angular/core';
 import {map} from 'rxjs/operators';
 import {forkJoin, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {APIService} from './api.service';
-
-export class Encounter {
-  constructor(public members: [], public map: string, public id: bigint) {
-  }
-}
+import {APIService} from '../api.service';
+import {Encounter, TransportEncounter} from './encounter.models';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +17,7 @@ export class EncounterService {
 
 
   random_encounter(biome, difficulty): Observable<Encounter> {
-    let res =  this.httpClient.get<string[]>(`${this.API_URL}/random_encounter/${biome}/${difficulty}`).pipe(
+    let res = this.httpClient.get<string[]>(`${this.API_URL}/random_encounter/${biome}/${difficulty}`).pipe(
       map(next => {
         console.log('!');
         console.log(next);
@@ -29,7 +25,7 @@ export class EncounterService {
         next.forEach(monster => {
           observables.push(this.apiService.monsterDetail(monster));
         });
-        let enc = new Encounter({}, '', 99);
+        let enc = new Encounter([], '', 99, []);
         let obs = forkJoin(observables).subscribe(members => {
           console.log('setting members');
           console.log(members);
@@ -46,16 +42,16 @@ export class EncounterService {
   }
 
   saveEncounter(members, mapp): Observable<Encounter> {
-    return this.httpClient.post<Encounter>(`${this.API_URL}/api/encounters/`, {members, map: mapp}).pipe(map(next => {
-      const enc = new Encounter(JSON.parse(next.members), JSON.parse(next.map), next.id);
+    return this.httpClient.post<TransportEncounter>(`${this.API_URL}/api/encounters/`, {members, map: mapp}).pipe(map(next => {
+      const enc = new Encounter(JSON.parse(next.members), JSON.parse(next.map), next.id, JSON.parse(next.players));
       console.log(enc);
       return enc;
     }));
   }
 
-  updateEncounter(id, members, map): Observable<Encounter> {
+  updateEncounter(id, members, map, players): Observable<Encounter> {
     const mapp = JSON.stringify(map);
-    return this.httpClient.put<Encounter>(`${this.API_URL}/api/encounters/${id}/`, {members, map: mapp});
+    return this.httpClient.put<Encounter>(`${this.API_URL}/api/encounters/${id}/`, {members, map: mapp, players});
   }
 
   getEncounters() {
@@ -66,7 +62,7 @@ export class EncounterService {
     return this.httpClient.get<Encounter>(`${this.API_URL}/api/encounters/${id}/`).pipe(map(next => {
       console.log(next);
       // @ts-ignore
-      const enc = new Encounter(JSON.parse(next.members), JSON.parse(next.map), next.id);
+      const enc = new Encounter(JSON.parse(next.members), JSON.parse(next.map), next.id, JSON.parse(next.players));
       console.log(enc);
       return enc;
     }));
