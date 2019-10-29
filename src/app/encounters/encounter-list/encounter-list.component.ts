@@ -35,7 +35,7 @@ export class EncounterListComponent implements OnInit {
 
 
   newEnconter() {
-    this.encounterService.saveEncounter([], '').subscribe(
+    this.encounterService.saveEncounter([], '',[]).subscribe(
       next => {
         this.encounters.push(new Encounter([], '', next.id, []));
       }

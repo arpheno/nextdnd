@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {CharactersRoutingModule} from './characters-routing.module';
 import {CharactersListComponent} from './character-list/characters-list.component';
 import {CharactersDetailComponent} from './character-detail/characters-detail.component';
-import {MatCardModule, MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatCardModule, MatFormFieldModule, MatInputModule, MatOptionModule, MatSelectModule} from '@angular/material';
 import {FormsModule} from '@angular/forms';
 import {MdePopoverModule} from '@material-extended/mde';
 
@@ -19,7 +19,7 @@ import {MdePopoverModule} from '@material-extended/mde';
     MatFormFieldModule,
     FormsModule, MdePopoverModule,
     MatCardModule,
-    MatInputModule,
+    MatInputModule, MatOptionModule, MatSelectModule,
   ]
 })
 export class CharactersModule {

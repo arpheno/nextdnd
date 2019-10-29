@@ -2,6 +2,27 @@
   <mat-form-field>
     <input [(ngModel)]="character.name" matInput placeholder="name" type="text">
   </mat-form-field>
+  <div>
+    <div>
+      AC: {{ character.ac[0] }} Armor Type: {{character.ac[1]}}
+    </div>
+    <mat-form-field>
+      <mat-label>Equipped armor</mat-label>
+      <mat-select (selectionChange)="update_armor($event)">
+        <mat-option *ngFor="let armor of armor_choices" [value]="armor.id">
+          {{ armor.name}} {{ armor.base_ac}}+{{armor.magical_bonus}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Equipped Weapon</mat-label>
+      <mat-select (selectionChange)="update_weapon($event)">
+        <mat-option *ngFor="let weapon of weapon_choices" [value]="weapon.id">
+          {{ weapon.name}} +{{weapon.magical_bonus}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <mat-form-field>
     <input [(ngModel)]="character.race" matInput placeholder="Race" type="text">
   </mat-form-field>
@@ -20,6 +41,7 @@
   <mat-form-field>
     <input [(ngModel)]="character.gold" matInput placeholder="gold" type="number">
   </mat-form-field>
+
   <div>
     <mat-form-field *ngFor="let attr of character.scores | keyvalue">
       <input [(ngModel)]="character.scores[attr.key]" [placeholder]="attr.key" matInput type="number">

@@ -75,7 +75,8 @@ export class APIService {
   monsterDetail(monster): Observable<Monster> {
     return this.httpClient.get<Monster>(`${this.API_URL}/monster/${monster}/`).pipe(
       map(mon => {
-          let m = Object.assign(new Monster, mon);
+          // @ts-ignore
+        let m = Object.assign(new Monster, mon);
           m.hp = roll(m.hd[0], m.hd[1]) + m.modifiers.con * m.hd[0];
           console.log(m);
           return m;

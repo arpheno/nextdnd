@@ -109,10 +109,10 @@ export class EncounterDetailComponent implements OnInit {
     this.players = [];
     this.characterService.listCharacters().subscribe(players => {
       let _players = [];// This is necessary to trigger the data binding...
-
+      console.log(players);
       players.forEach(player => {
         _players.push({
-          ac: [10, 1],// TODO: Implement from server side
+          ac: player.ac,
           size: 'Medium',// TODO: Implement from server side
           type: 'Humanoid',
           id: player.id,
@@ -129,6 +129,7 @@ export class EncounterDetailComponent implements OnInit {
             }
           ]
         });
+        console.log(_players);
         this.players = _players;
       });
     });
@@ -138,9 +139,10 @@ export class EncounterDetailComponent implements OnInit {
   private award_experience() {
     const total_xp: number = this.members.reduce((a, b) => {
       return a + b.xp;
-    },0);
+    }, 0);
     const xp_per_player = Math.round(total_xp / this.players.length);
     this.players.forEach(player => {
+        // @ts-ignore
         this.characterService.characterDetail(player.id).subscribe(next => {
           next.experience += xp_per_player;
           console.log(xp_per_player);

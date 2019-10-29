@@ -16,11 +16,10 @@ export class Character {
     public level: number,
     public description: string,
     public gold: number,
-    public experience: number) {
+    public experience: number,
+    public modifiers: Attributes,
+    public ac: number,
+    public armor: number) {
   }
 
-  public ac() {
-    return this.scores[1];
-
-  }
 }

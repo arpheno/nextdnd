@@ -30,6 +30,7 @@ import { PriceidComponent } from './priceid/priceid.component';
 import { FretboardComponent } from './fretboard/fretboard.component';
 import { MetronomeComponent } from './metronome/metronome.component';
 import { UiComponent } from './ui/ui.component';
+import { EquipmentComponent } from './equipment/equipment.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UiComponent } from './ui/ui.component';
     FretboardComponent,
     MetronomeComponent,
     UiComponent,
+    EquipmentComponent,
   ],
   imports: [
     BrowserModule,

@@ -27,11 +27,11 @@ export class CharacterService {
   }
 
 
-  characterDetail(id: number): Observable<Character> {
+  characterDetail(id: [number, string]): Observable<Character> {
     return this.httpClient.get<Character>(`${this.API_URL}/${id}/`).pipe(
       map(mon => {
           // @ts-ignore
-          let m = Object.assign(new Character, mon);
+          const m = Object.assign(new Character, mon);
           return m;
         }
       ));

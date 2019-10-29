@@ -47,6 +47,7 @@ export class CharactersListComponent implements OnInit {
     };
     this.characterService.characterCreate(m).subscribe(
       next => {
+        // @ts-ignore
         this.characters.push(m);
       }
     );

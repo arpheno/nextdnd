@@ -29,7 +29,7 @@ export class EncounterService {
         let obs = forkJoin(observables).subscribe(members => {
           console.log('setting members');
           console.log(members);
-          this.saveEncounter(members, '').subscribe(next => {
+          this.saveEncounter(members, '', []).subscribe(next => {
             enc.members = next.members;
             enc.id = next.id;
             enc.map = next.map;
@@ -41,8 +41,8 @@ export class EncounterService {
     return res;
   }
 
-  saveEncounter(members, mapp): Observable<Encounter> {
-    return this.httpClient.post<TransportEncounter>(`${this.API_URL}/api/encounters/`, {members, map: mapp}).pipe(map(next => {
+  saveEncounter(members, mapp, players): Observable<Encounter> {
+    return this.httpClient.post<TransportEncounter>(`${this.API_URL}/api/encounters/`, {members, map: mapp, players}).pipe(map(next => {
       const enc = new Encounter(JSON.parse(next.members), JSON.parse(next.map), next.id, JSON.parse(next.players));
       console.log(enc);
       return enc;
