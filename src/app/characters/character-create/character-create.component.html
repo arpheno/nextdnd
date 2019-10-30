@@ -1,0 +1,90 @@
+<mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
+      <ng-template matStepLabel>Choose a name for your hero!</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Select your race</ng-template>
+      <div class="race">
+        <mat-radio-group formControlName="race">
+          <mat-radio-button class="example-radio-button" *ngFor="let race of race_choices" [value]="race">
+            <div>
+              {{race}}
+            </div>
+            <img src="assets/img/{{race | snakecase}}.jpg">
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Select your Background</ng-template>
+      <div class="background">
+        <mat-radio-group formControlName="background">
+          <mat-radio-button class="example-radio-button" *ngFor="let background of background_choices"
+                            [value]="background.name">
+            <div>
+              {{background.name}}
+            </div>
+            <img src="assets/img/{{background.name | snakecase}}.jpg">
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Select your Alignment</ng-template>
+      <div class="alignment">
+        <mat-radio-group formControlName="alignment">
+          <mat-radio-button class="example-radio-button" *ngFor="let alignment of alignment_choices"
+                            [value]="alignment">
+            <div>
+              {{alignment}}
+            </div>
+            <img src="assets/img/alignments/{{alignment | snakecase}}.jpg">
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+
+
+
+
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button type="submit">Submit</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

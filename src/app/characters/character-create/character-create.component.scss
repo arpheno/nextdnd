@@ -1,0 +1,60 @@
+.race mat-radio-group{
+  display:flex;
+  flex-wrap: wrap;
+
+}
+.race mat-radio-button{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 30%;
+  div{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+.race img{
+  max-width: 100%;
+}
+.background mat-radio-group{
+  display:flex;
+  flex-wrap: wrap;
+
+}
+.background mat-radio-button{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 25%;
+  div{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+.background img{
+  max-width: 100%;
+}
+.alignment mat-radio-group{
+  display:flex;
+  flex-wrap: wrap;
+
+}
+.alignment mat-radio-button{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 33%;
+  div{
+    text-align: center;
+    text-transform: capitalize;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
+.alignment img{
+  max-width: 100%;
+}

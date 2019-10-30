@@ -8,7 +8,7 @@
     </div>
     <mat-form-field>
       <mat-label>Equipped armor</mat-label>
-      <mat-select (selectionChange)="update_armor($event)">
+      <mat-select (selectionChange)="update_armor($event)" [(value)]="character.armor">
         <mat-option *ngFor="let armor of armor_choices" [value]="armor.id">
           {{ armor.name}} {{ armor.base_ac}}+{{armor.magical_bonus}}
         </mat-option>
@@ -16,7 +16,7 @@
     </mat-form-field>
     <mat-form-field>
       <mat-label>Equipped Weapon</mat-label>
-      <mat-select (selectionChange)="update_weapon($event)">
+      <mat-select (selectionChange)="update_weapon($event)" >
         <mat-option *ngFor="let weapon of weapon_choices" [value]="weapon.id">
           {{ weapon.name}} +{{weapon.magical_bonus}}
         </mat-option>
@@ -33,7 +33,7 @@
     <input [(ngModel)]="character.alignment" matInput placeholder="alignment" type="text">
   </mat-form-field>
   <mat-form-field>
-    <input [(ngModel)]="character.level" matInput placeholder="level" type="number">
+    <input [(ngModel)]="character.level" matInput placeholder="level" type="number" (input)="updateCharacter(character)">
   </mat-form-field>
   <mat-form-field>
     <input [(ngModel)]="character.experience" matInput placeholder="experience" type="number">
