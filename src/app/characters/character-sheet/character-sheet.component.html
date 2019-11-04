@@ -1,0 +1,33 @@
+<div>Name: {{character.name}}</div>
+<div >
+  <div *ngIf="character.race">Race: {{character.race}}</div>
+  <div *ngIf="ability_bonuses" style="display:flex;" >
+    <div style="display: flex;flex-direction: column;align-items: center"
+         *ngFor="let attribute of ability_bonuses|keyvalue">
+      {{attribute.key}}
+      <button mat-mini-fab [ngClass]="attribute.key">
+        +{{attribute.value}}
+      </button>
+    </div>
+  </div>
+  <div *ngIf="_traits">
+    Traits
+    <mat-chip-list>
+    </mat-chip-list>
+    <div *ngFor="let x of _traits.items()">
+      <h4>{{x[0] | titlecase }}s</h4>
+      <mat-chip *ngFor="let trait of x[1]" [ngClass]="x[0]">
+        {{trait.name}}
+      </mat-chip>
+    </div>
+  </div>
+
+</div>
+<div *ngIf="character.background">
+  <div>Background: {{character.background}}</div>
+  <div> {{backgrounds[character.background].description}}</div>
+
+</div>
+<div [hidden]="!character.category">Class: {{character.category}}</div>
+<div [hidden]="!character.alignment">Alignment: {{character.alignment}}</div>
+<div [hidden]="!character.scores.str">Ability Scores: {{character.scores | json}}</div>

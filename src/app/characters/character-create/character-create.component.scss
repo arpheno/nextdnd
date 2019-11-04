@@ -8,7 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1 1 30%;
+  flex: 1 1 20%;
   div{
     text-align: center;
     text-transform: capitalize;
@@ -57,4 +57,10 @@
 }
 .alignment img{
   max-width: 100%;
+}
+app-character-sheet{
+  flex:1 1 20%;
+}
+mat-horizontal-stepper{
+  flex:1 1 80%;
 }

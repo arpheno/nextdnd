@@ -6,9 +6,6 @@ import {EncounterService} from '../encounter.service';
 import {AUTHOR_ID} from '../../utils';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CharacterService} from '../../characters/character.service';
-import {Character} from '../../characters/character.model';
-import {forEach} from '@angular/router/src/utils/collection';
-import {Encounter} from '../encounter.models';
 
 @Component({
   selector: 'app-encounter',
