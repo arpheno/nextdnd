@@ -1,5 +1,5 @@
-<div>Name: {{character.name}}</div>
 <div >
+  <h2>Brief Summary</h2>
   <div *ngIf="character.race">Race: {{character.race}}</div>
   <div *ngIf="ability_bonuses" style="display:flex;" >
     <div style="display: flex;flex-direction: column;align-items: center"
@@ -11,7 +11,6 @@
     </div>
   </div>
   <div *ngIf="_traits">
-    Traits
     <mat-chip-list>
     </mat-chip-list>
     <div *ngFor="let x of _traits.items()">
@@ -23,11 +22,9 @@
   </div>
 
 </div>
-<div *ngIf="character.background">
-  <div>Background: {{character.background}}</div>
-  <div> {{backgrounds[character.background].description}}</div>
-
-</div>
 <div [hidden]="!character.category">Class: {{character.category}}</div>
 <div [hidden]="!character.alignment">Alignment: {{character.alignment}}</div>
-<div [hidden]="!character.scores.str">Ability Scores: {{character.scores | json}}</div>
+<div *ngIf="character.background">
+  <div>Background: {{character.background}}</div>
+</div>
+

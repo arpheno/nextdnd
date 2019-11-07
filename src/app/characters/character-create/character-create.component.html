@@ -2,126 +2,136 @@
   <app-character-sheet [character]="firstFormGroup.value"
                        (traits)="onTraits($event)"
                        (choices)="onFreeChoices($event)"></app-character-sheet>
+  <div class="mat-radio-container">
+    lol
+  </div>
   <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup" (ngSubmit)="onSubmit()">
-        <ng-template matStepLabel>Name</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Name" formControlName="name" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Race</ng-template>
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Race</ng-template>
         <div class="race">
           <mat-radio-group formControlName="race">
-            <mat-radio-button class="example-radio-button" *ngFor="let race of race_choices" [value]="race">
-              <div>
-                {{race}}
+            <mat-radio-button *ngFor="let race of race_choices|keyvalue" [value]="race.key">
+
+              <div class="container">
+                <div class="LABEL">
+                  {{race.key}}
+                </div>
+                <img src="assets/img/{{race.key | snakecase}}.jpg">
               </div>
-              <img src="assets/img/{{race | snakecase}}.jpg">
             </mat-radio-button>
           </mat-radio-group>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Class</ng-template>
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Background</ng-template>
         <div class="background">
-          <mat-radio-group formControlName="background">
+          <mat-radio-group formControlName="category" (change)="onClassChange($event)">
+            <mat-radio-button class="example-radio-button" *ngFor="let category of class_choices|keyvalue"
+                              [value]="category.key">
+              <div class="container">
+                <div class="LABEL">
+                  {{category.key}}
+                </div>
+                <img src="assets/img/classes/{{category.key | snakecase}}.jpg">
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Background</ng-template>
+      <form [formGroup]="firstFormGroup">
+        <div class="background">
+          <mat-radio-group formControlName="background" (change)="onBackgroundChange($event)">
             <mat-radio-button class="example-radio-button" *ngFor="let background of background_choices"
+                              [mdePopoverTriggerFor]="backgroundover" mdePopoverTriggerOn="hover"
                               [value]="background.name">
-              <div>
-                {{background.name}}
+              <div class="container">
+                <div class="LABEL">
+                  {{background.name}}
+                </div>
+                <img src="assets/img/{{background.name | snakecase}}.jpg">
               </div>
-              <img src="assets/img/{{background.name | snakecase}}.jpg">
+
+              <mde-popover #backgroundover="mdePopover" [mdePopoverOverlapTrigger]="false">
+                <mat-card class="backgroundtooltip">
+                  <mat-card-content>
+                    <p>
+                      {{background.description.main}}
+                    </p>
+                  </mat-card-content>
+                </mat-card>
+              </mde-popover>
             </mat-radio-button>
           </mat-radio-group>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup">
+      <ng-template matStepLabel>Alignment</ng-template>
       <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Alignment</ng-template>
         <div class="alignment">
-          <mat-radio-group formControlName="alignment">
+          <mat-radio-group formControlName="alignment"  (change)="onAlignnmentChange($event)">
             <mat-radio-button class="example-radio-button" *ngFor="let alignment of alignment_choices"
-                              [value]="alignment">
-              <div>
-                {{alignment}}
-              </div>
-              <img src="assets/img/alignments/{{alignment | snakecase}}.jpg">
+                              [value]="alignment.name">
+              <img src="assets/img/alignments/{{alignment.name | snakecase}}.jpg">
             </mat-radio-button>
           </mat-radio-group>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-
-
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Class</ng-template>
-        <div class="background">
-          <mat-radio-group formControlName="category">
-            <mat-radio-button class="example-radio-button" *ngFor="let category of class_choices"
-                              [value]="category">
-              <div>
-                {{category}}
-              </div>
-              <img src="assets/img/classes/{{category | snakecase}}.jpg">
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Ability Scores</ng-template>
-        <div class="background" formGroupName="scores">
-          <mat-form-field><input matInput type="number" formControlName="str" [defaultValue]="10"></mat-form-field>
-          <mat-form-field><input matInput type="number" formControlName="dex" [defaultValue]="10"></mat-form-field>
-          <mat-form-field><input matInput type="number" formControlName="con" [defaultValue]="10"></mat-form-field>
-          <mat-form-field><input matInput type="number" formControlName="int" [defaultValue]="10"></mat-form-field>
-          <mat-form-field><input matInput type="number" formControlName="wis" [defaultValue]="10"></mat-form-field>
-          <mat-form-field><input matInput type="number" formControlName="cha" [defaultValue]="10"></mat-form-field>
-        </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup" *ngIf="free_choices">
-      <form [formGroup]="firstFormGroup.controls.free_choices">
-        <ng-template matStepLabel>Free Choices</ng-template>
-        <div class="background" *ngFor="let choice of free_choices;" >
+      <ng-template matStepLabel>Free Choices</ng-template>
+      <form [formGroup]="firstFormGroup">
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name" required>
+        </mat-form-field>
+
+        <h4>Ability Scores</h4>
+        <div class="background abilityScores" formGroupName="scores">
           <mat-form-field>
-            <mat-label>{{choice.name}}</mat-label>
-            <mat-select multiple [formControlName]="choice.name" (selectionChange)="onFreechoiceselection($event,choice)">
+            <mat-label>Strength</mat-label>
+            <input matInput type="number" formControlName="str">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Dexterity</mat-label>
+            <input matInput type="number" formControlName="dex">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Constitution</mat-label>
+            <input matInput type="number" formControlName="con">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Intelligence</mat-label>
+            <input matInput type="number" formControlName="int">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Wisdom</mat-label>
+            <input matInput type="number" formControlName="wis" [defaultValue]="10">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Charisma</mat-label>
+            <input matInput type="number" formControlName="cha" [defaultValue]="10">
+          </mat-form-field>
+        </div>
+        <div *ngIf="!firstFormGroup.controls.scores.valid">
+          Please choose one of each: 15,14,13,12,10,8
+        </div>
+
+      </form>
+      <form [formGroup]="firstFormGroup.controls.free_choices">
+        <div class="background" *ngFor="let choice of free_choices;">
+          <mat-form-field>
+            <mat-label>{{choice.name}}: Choose{{choice.choose}}</mat-label>
+            <mat-select multiple [formControlName]="choice.name">
               <mat-option *ngFor="let op of choice.from" [value]="op">{{op.name}}</mat-option>
             </mat-select>
             <div
@@ -131,20 +141,83 @@
             </div>
           </mat-form-field>
         </div>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
       </form>
     </mat-step>
 
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+    <mat-step [stepControl]="firstFormGroup" class="summary">
+      <ng-template matStepLabel>Summary</ng-template>
+      <h2>Summary</h2>
+      <p>Take some time to read through the following paragraphs to familiarize yourself with your new Character.
+        The more imagination you use and the more fleshed-out your character is the more fun it will be for everyone in
+        the party.</p>
+      <p>Strength is not everything! Sure it is fun to slice monsters in half with one strike, it's a big part of the
+        game. However
+        do not underestimate the memorable moments that can be created by the warrior who can't swim or the cleric who
+        is afraid of the dark.
+      </p>
+      <div *ngIf="firstFormGroup.controls.race.valid">
+        <h3>Racial Background</h3>
+        <mat-card>
+          <mat-card-content *ngIf="firstFormGroup.controls.race.valid">
+            <h3>{{race_choices[firstFormGroup.controls.race.value].name |titlecase}}</h3>
+            <div>{{race_choices[firstFormGroup.controls.race.value].description.main}}</div>
+            <mat-card>
+              <mat-card-content
+                *ngFor="let chapter of race_choices[firstFormGroup.controls.race.value].description.chapters |keyvalue">
+                <h4>{{chapter.key |titlecase}}</h4>
+                <div>{{chapter.value}}</div>
+              </mat-card-content>
+            </mat-card>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div *ngIf="firstFormGroup.controls.background.valid">
+        <h3>Societal Background</h3>
+        <mat-card-content *ngIf="firstFormGroup.controls.background.valid">
+          <h3>{{background.name |titlecase}}</h3>
+          <div>{{background.description.main}}</div>
+          <mat-card>
+            <mat-card-content
+              *ngFor="let chapter of background.description.chapters |keyvalue">
+              <h4>{{chapter.key |titlecase}}</h4>
+              <div>{{chapter.value}}</div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </div>
+      <div *ngIf="alignment">
+        <h3>Alignment Background</h3>
+        <mat-card-content *ngIf="firstFormGroup.controls.alignment.valid">
+          <h3>{{alignment.name |titlecase}}</h3>
+          <div>{{alignment.description.main}}</div>
+          <mat-card>
+            <mat-card-content
+              *ngFor="let chapter of alignment.description.chapters |keyvalue">
+              <h4>{{chapter.key |titlecase}}</h4>
+              <div>{{chapter.value}}</div>
+            </mat-card-content>
+          </mat-card>
+        </mat-card-content>
+      </div>
+      <mat-card>
+        <h3>Class Background</h3>
+        <mat-card-content *ngIf="firstFormGroup.controls.category.valid">
+          <h3>{{category.name |titlecase}}</h3>
+          <div>{{category.description.main}}</div>
+          <mat-card>
+            <mat-card-content
+              *ngFor="let chapter of category.description.chapters |keyvalue">
+              <h4>{{chapter.key |titlecase}}</h4>
+              <div>{{chapter.value}}</div>
+            </mat-card-content>
+          </mat-card>
+          <h3>More questions</h3>
+          <div>{{category.description.create}}</div>
+        </mat-card-content>
+      </mat-card>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-        <button type="submit" (click)="onSubmit()">Submit</button>
+        <div> Character is valid {{firstFormGroup.valid}} </div>
+        <button type="submit" [disabled]="!firstFormGroup.valid" (click)="onSubmit()">Submit</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

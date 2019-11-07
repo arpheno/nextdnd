@@ -24,7 +24,7 @@ interface CharacterParams {
 })
 export class CharacterSheetComponent implements OnInit {
   public races: object;
-  private backgrounds: {};
+  private backgrounds: [{name}];
   private _character: CharacterParams;
   private _traits: DefaultDict;
   private race: any;
@@ -38,7 +38,7 @@ export class CharacterSheetComponent implements OnInit {
   }
 
   @Output() choices = new EventEmitter<object>();
-  @Output() traits = new EventEmitter<object>();
+  @Output() traits = new EventEmitter<[{ type, name }]>();
 
   @Input()
   set character(character: CharacterParams) {
@@ -66,7 +66,7 @@ export class CharacterSheetComponent implements OnInit {
 
     }
     if (character.background) {
-      this.bkg = this.backgrounds[(this.transform_race(character.background))];
+      this.bkg = this.backgrounds.find(obj=>{return obj.name==character.background});
       this.bkg.traits.forEach(x => {
         this._traits.get(x.type).push(x);
       });
@@ -84,11 +84,11 @@ export class CharacterSheetComponent implements OnInit {
           this._traits.get(x.type).push(x);
         });
       } else {
-        this._traits.get('choices').push(x);
+        this._traits.get('choice').push(x);
       }
     });
     this.choices.emit(this._choices);
-    this.traits.emit(this._traits);
+    this.traits.emit(this._traits.items());
     this._character = character;
 
   }
@@ -109,11 +109,7 @@ export class CharacterSheetComponent implements OnInit {
       this.classes[x.name] = x;
     });
 
-    this.backgrounds = {};
-    background_choices.default.forEach(x => {
-      // @ts-ignore
-      this.backgrounds[x.name] = x;
-    });
+    this.backgrounds = background_choices.default
   }
 
 }

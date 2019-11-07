@@ -6,7 +6,7 @@ import {CharactersListComponent} from './character-list/characters-list.componen
 import {CharactersDetailComponent} from './character-detail/characters-detail.component';
 import {
   MatButtonModule,
-  MatCardModule,
+  MatCardModule, MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
   MatOptionModule,
@@ -21,6 +21,7 @@ import {MdePopoverModule} from '@material-extended/mde';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import {SnakecasePipe} from './snakecase.pipe';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
+import { GreeterComponent } from './greeter/greeter.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
     CharactersDetailComponent,
     CharacterCreateComponent,
     SnakecasePipe,
-    CharacterSheetComponent
+    CharacterSheetComponent,
+    GreeterComponent
   ],
   imports: [
     CommonModule,
@@ -36,8 +38,10 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
     MatFormFieldModule,
     FormsModule, MdePopoverModule,
     MatCardModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule
-  ]
+    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule
+  ],
+  entryComponents: [GreeterComponent]
+
 })
 export class CharactersModule {
 }
