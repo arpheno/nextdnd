@@ -12,16 +12,17 @@ import {
   MatOptionModule,
   MatRadioModule,
   MatSelectModule,
-  MatStepperModule
+  MatStepperModule, MatTooltipModule
 } from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MdePopoverModule} from '@material-extended/mde';
 import { CharacterCreateComponent } from './character-create/character-create.component';
 import {SnakecasePipe} from './snakecase.pipe';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 import { GreeterComponent } from './greeter/greeter.component';
+import { PictureRadioComponent } from './character-create/picture-radio/picture-radio.component';
+import {MdePopoverModule} from '@material-extended/mde';
 
 @NgModule({
   declarations: [
@@ -30,15 +31,16 @@ import { GreeterComponent } from './greeter/greeter.component';
     CharacterCreateComponent,
     SnakecasePipe,
     CharacterSheetComponent,
-    GreeterComponent
+    GreeterComponent,
+    PictureRadioComponent
   ],
   imports: [
     CommonModule,
     CharactersRoutingModule,
     MatFormFieldModule,
-    FormsModule, MdePopoverModule,
+    FormsModule,
     MatCardModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule
+    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule
   ],
   entryComponents: [GreeterComponent]
 

@@ -1,74 +1,3 @@
-.race mat-radio-group {
-  display: flex;
-  flex-wrap: wrap;
-
-}
-
-.race mat-radio-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 20%;
-
-  div {
-    text-align: center;
-    text-transform: capitalize;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-  }
-}
-
-.race img {
-  max-width: 100%;
-}
-
-.background mat-radio-group {
-  display: flex;
-  flex-wrap: wrap;
-
-}
-
-.background mat-radio-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 12%;
-
-  div {
-    text-align: center;
-    text-transform: capitalize;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-  }
-}
-
-.background img {
-  max-width: 100%;
-}
-
-.alignment mat-radio-group {
-  display: flex;
-  flex-wrap: wrap;
-
-}
-
-.alignment mat-radio-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex: 1 1 33%;
-
-  div {
-    text-align: center;
-    text-transform: capitalize;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-  }
-}
-
-.alignment img {
-  max-width: 100%;
-}
 
 app-character-sheet {
   flex: 1 1 30%;
@@ -76,25 +5,6 @@ app-character-sheet {
 
 mat-horizontal-stepper {
   flex: 1 1 70%;
-}
-
-.container {
-  max-width: 100%;
-  position: relative;
-  text-align: center;
-  color: white;
-}
-
-.LABEL {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #262626;
-}
-
-mat-card.backgroundtooltip {
-  width: 50%;
 }
 
 mat-card.summary {
@@ -114,13 +24,22 @@ div.ng-invalid {
   background-color: #ff96a4;
 }
 
-img {
-  transition: transform .2s; /* Animation */
+::ng-deep mat-radio-group {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-img:hover {
-  transform: scale(1.1);
+app-picture-radio.alignment ::ng-deep mat-radio-button {
+  flex: 1 1 33%;
 }
-.mat-radio-container{
-  display:none !important;
+
+app-picture-radio.background ::ng-deep mat-radio-button {
+  flex: 1 1 12%;
+}
+
+app-picture-radio.race ::ng-deep mat-radio-button {
+  flex: 1 1 20%;
+}
+app-picture-radio.category ::ng-deep mat-radio-button {
+  flex: 1 1 20%;
 }

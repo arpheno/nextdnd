@@ -30,18 +30,18 @@ const ScoreValidator: ValidatorFn = (fg: FormGroup) => {
 })
 export class CharacterCreateComponent implements OnInit {
   private firstFormGroup: FormGroup;
-  private race_choices: {};
-  background_choices: [{name,description,choices,traits}];
+  private race_choices: [{ name, description: { main, chapters } }];
+  background_choices: [{ name, description, choices, traits }];
   private alignment_choices: [{ name, description }];
-  private class_choices: {
-    string: {
+  private class_choices: [
+    {
       name: string,
       description: {
         main: string,
         chapters: string[]
       }
     }
-  };
+  ];
   private background_descriptions: {};
   private free_choices: [];
   private traits: [{ type: string, name: string }];
@@ -49,6 +49,7 @@ export class CharacterCreateComponent implements OnInit {
   private alignment: { name, description };
   private category: { name, description };
   private background: { name, description };
+  private race: { name; description: { main; chapters } };
 
   constructor(private _formBuilder: FormBuilder,
               private characterService: CharacterService,
@@ -89,21 +90,11 @@ export class CharacterCreateComponent implements OnInit {
 
   getBackgroundChoices() {
     this.background_choices = background_choices.default;
-    this.background_descriptions = {};
-    this.background_choices.forEach(x => {
-      // @ts-ignore
-      this.background_descriptions[x.name] = x.description;
-    });
-    console.log(this.background_descriptions);
   }
 
   getClassChoices() {
     // @ts-ignore
-    this.class_choices = {};
-    classes.default.forEach(x => {
-      this.class_choices[x.name] = x;
-    });
-
+    this.class_choices = classes.default;
   }
 
   getAlignmentChoices() {
@@ -180,12 +171,24 @@ export class CharacterCreateComponent implements OnInit {
     });
 
   }
-  onClassChange(event: MatRadioChange) {
 
-    this.category = this.class_choices[event.value];
+  onClassChange(event: MatRadioChange) {
+    this.category = this.class_choices.find(obj => {
+      return obj.name == event.value;
+    });
   }
 
   onBackgroundChange(event: MatRadioChange) {
-    this.background = this.background_choices.find(obj=>{return obj.name==event.value});
+    this.background = this.background_choices.find(obj => {
+      return obj.name == event.value;
+    });
+  }
+
+  onRaceChange(event: MatRadioChange) {
+    this.race = this.race_choices.find(obj => {
+      return obj.name == event.value;
+    });
+    console.log(this.race);
+
   }
 }

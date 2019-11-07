@@ -23,7 +23,7 @@ interface CharacterParams {
   styleUrls: ['./character-sheet.component.scss']
 })
 export class CharacterSheetComponent implements OnInit {
-  public races: object;
+  public races: [{name}];
   private backgrounds: [{name}];
   private _character: CharacterParams;
   private _traits: DefaultDict;
@@ -46,7 +46,10 @@ export class CharacterSheetComponent implements OnInit {
     this._traits = new DefaultDict([].constructor);
     this.ability_bonuses = {};
     if (character.race) {
-      this.race = this.races[(this.transform_race(character.race))];
+      this.race = this.races.find(obj => {
+        return obj.name == character.race;
+      });
+      console.log(this.race)
       this.ability_bonuses = this.race.ability_bonuses;
       this.race.traits.forEach(x => {
         this._traits.get(x.type).push(x);

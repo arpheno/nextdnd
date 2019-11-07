@@ -2,90 +2,51 @@
   <app-character-sheet [character]="firstFormGroup.value"
                        (traits)="onTraits($event)"
                        (choices)="onFreeChoices($event)"></app-character-sheet>
-  <div class="mat-radio-container">
-    lol
-  </div>
+
   <mat-horizontal-stepper labelPosition="bottom" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Race</ng-template>
-      <form [formGroup]="firstFormGroup">
-        <div class="race">
-          <mat-radio-group formControlName="race">
-            <mat-radio-button *ngFor="let race of race_choices|keyvalue" [value]="race.key">
 
-              <div class="container">
-                <div class="LABEL">
-                  {{race.key}}
-                </div>
-                <img src="assets/img/{{race.key | snakecase}}.jpg">
-              </div>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </form>
+      <app-picture-radio class="race"
+                         [gormgroup]="firstFormGroup.controls.race"
+                         [choices]="race_choices"
+                         prefix="races"
+                         (change)="onRaceChange($event)">
+      </app-picture-radio>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Class</ng-template>
-      <form [formGroup]="firstFormGroup">
-        <div class="background">
-          <mat-radio-group formControlName="category" (change)="onClassChange($event)">
-            <mat-radio-button class="example-radio-button" *ngFor="let category of class_choices|keyvalue"
-                              [value]="category.key">
-              <div class="container">
-                <div class="LABEL">
-                  {{category.key}}
-                </div>
-                <img src="assets/img/classes/{{category.key | snakecase}}.jpg">
-              </div>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </form>
+
+      <app-picture-radio class="category"
+                         [gormgroup]="firstFormGroup.controls.category"
+                         [choices]="class_choices"
+                         prefix="classes"
+                         (change)="onClassChange($event)">
+      </app-picture-radio>
+
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Background</ng-template>
-      <form [formGroup]="firstFormGroup">
-        <div class="background">
-          <mat-radio-group formControlName="background" (change)="onBackgroundChange($event)">
-            <mat-radio-button class="example-radio-button" *ngFor="let background of background_choices"
-                              [mdePopoverTriggerFor]="backgroundover" mdePopoverTriggerOn="hover"
-                              [value]="background.name">
-              <div class="container">
-                <div class="LABEL">
-                  {{background.name}}
-                </div>
-                <img src="assets/img/{{background.name | snakecase}}.jpg">
-              </div>
+      <app-picture-radio class="background"
+                         [gormgroup]="firstFormGroup.controls.background"
+                         [choices]="background_choices"
+                         prefix="backgrounds"
+                         (change)="onBackgroundChange($event)">
+      </app-picture-radio>
 
-              <mde-popover #backgroundover="mdePopover" [mdePopoverOverlapTrigger]="false">
-                <mat-card class="backgroundtooltip">
-                  <mat-card-content>
-                    <p>
-                      {{background.description.main}}
-                    </p>
-                  </mat-card-content>
-                </mat-card>
-              </mde-popover>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </form>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Alignment</ng-template>
-      <form [formGroup]="firstFormGroup">
-        <div class="alignment">
-          <mat-radio-group formControlName="alignment"  (change)="onAlignnmentChange($event)">
-            <mat-radio-button class="example-radio-button" *ngFor="let alignment of alignment_choices"
-                              [value]="alignment.name">
-              <img src="assets/img/alignments/{{alignment.name | snakecase}}.jpg">
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-      </form>
+
+      <app-picture-radio class="alignment"
+                         [gormgroup]="firstFormGroup.controls.alignment"
+                         [choices]="alignment_choices"
+                         prefix="alignments"
+                         (change)="onAlignnmentChange($event)">
+      </app-picture-radio>
     </mat-step>
 
     <mat-step [stepControl]="firstFormGroup" *ngIf="free_choices">
@@ -159,11 +120,11 @@
         <h3>Racial Background</h3>
         <mat-card>
           <mat-card-content *ngIf="firstFormGroup.controls.race.valid">
-            <h3>{{race_choices[firstFormGroup.controls.race.value].name |titlecase}}</h3>
-            <div>{{race_choices[firstFormGroup.controls.race.value].description.main}}</div>
+            <h3>{{race.name |titlecase}}</h3>
+            <div>{{race.description.main}}</div>
             <mat-card>
               <mat-card-content
-                *ngFor="let chapter of race_choices[firstFormGroup.controls.race.value].description.chapters |keyvalue">
+                *ngFor="let chapter of race.description.chapters |keyvalue">
                 <h4>{{chapter.key |titlecase}}</h4>
                 <div>{{chapter.value}}</div>
               </mat-card-content>

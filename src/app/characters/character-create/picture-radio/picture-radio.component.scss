@@ -1,0 +1,41 @@
+img {
+  max-width: 100%;
+  transition: transform .2s; /* Animation */
+}
+
+img:hover {
+  transform: scale(1.1);
+}
+
+
+.container {
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.LABEL {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #262626;
+}
+
+mat-card.backgroundtooltip {
+  width: 50%;
+}
+
+mat-radio-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  div {
+    text-align: center;
+    text-transform: capitalize;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+}
