@@ -23,6 +23,8 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
 import { GreeterComponent } from './greeter/greeter.component';
 import { PictureRadioComponent } from './character-create/picture-radio/picture-radio.component';
 import {MdePopoverModule} from '@material-extended/mde';
+import {TooltipModule} from 'ngx-tooltip';
+import { ChoicechooserComponent } from './character-create/choicechooser/choicechooser.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import {MdePopoverModule} from '@material-extended/mde';
     SnakecasePipe,
     CharacterSheetComponent,
     GreeterComponent,
-    PictureRadioComponent
+    PictureRadioComponent,
+    ChoicechooserComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,7 @@ import {MdePopoverModule} from '@material-extended/mde';
     MatFormFieldModule,
     FormsModule,
     MatCardModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule
+    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule, TooltipModule
   ],
   entryComponents: [GreeterComponent]
 

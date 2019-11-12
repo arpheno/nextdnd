@@ -1,12 +1,48 @@
 <div style="display: flex">
-  <app-character-sheet [character]="firstFormGroup.value"
+  <app-character-sheet [race]="race"
+                       [klass]="category"
+                       [alignment]="alignment"
+                       [bkg]="background"
                        (traits)="onTraits($event)"
                        (choices)="onFreeChoices($event)"></app-character-sheet>
 
-  <mat-horizontal-stepper labelPosition="bottom" #stepper>
+  <mat-horizontal-stepper labelPosition="bottom">
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Race</ng-template>
+      <p>
+        Every character belongs to a race, one of the many
+        intelligent humanoid species in the D&D world. The
+        most common player character races are dwarves, elves,
+        halflings, and humans. Some races also have subraces,
+        such as mountain dw arf or w ood elf. Chapter 2 provides
+        more information about these races, as well as the less
+        widespread races of dragonborn, gnomes, half-elves,
+        half-orcs, and tieflings.
 
+      </p>
+      <p>
+        The race you choose contributes to your character’s
+        identity in an important way, by establishing a general
+        appearance and the natural talents gained from culture
+        and ancestry. Your character’s race grants particular
+        racial traits, such as special senses, proficiency with
+        certain weapons or tools, proficiency in one or m ore
+        skills, or the ability to use minor spells. These traits
+        sometimes dovetail with the capabilities of certain
+        classes (see step 2). For example, the racial traits of
+        lightfoot halflings make them exceptional rogues, and
+        high elves tend to be powerful wizards. Sometimes
+        playing against type can be fun, too. Half-orc paladins
+        and mountain dwarf wizards, for example, can be
+        unusual but memorable characters.
+      </p>
+      <p>
+        Your race also increases one or m ore of your ability
+        scores. Note these increases and remember to apply them later.
+        Record the traits granted by your race on your
+        character sheet. Be sure to note your starting
+        languages and your base speed as well.
+      </p>
       <app-picture-radio class="race"
                          [gormgroup]="firstFormGroup.controls.race"
                          [choices]="race_choices"
@@ -17,12 +53,29 @@
 
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Class</ng-template>
-
+      <p>Every adventurer is a member of a class. Class broadly
+        describes a character’s vocation, what special talents he
+        or she possesses, and the tactics he or she is most likely
+        to employ when exploring a dungeon, fighting monsters,
+        or engaging in a tense negotiation.
+      </p>
+      <p>
+        Your character receives a number of benefits from
+        your choice of class. Many of these benefits are class
+        features—capabilities (including spellcasting) that set
+        your character apart from members of other classes.
+      </p>
+      <p>
+        You also gain a number of proficiencies: armor,
+        weapons, skills, saving throws, and sometimes tools.
+        Your proficiencies define many of the things your
+        character can do particularly well, from using certain
+        weapons to telling a convincing lie.</p>
       <app-picture-radio class="category"
                          [gormgroup]="firstFormGroup.controls.category"
                          [choices]="class_choices"
                          prefix="classes"
-                         (change)="onClassChange($event)">
+                         (change)="onClassChage($event)">
       </app-picture-radio>
 
     </mat-step>
@@ -57,6 +110,43 @@
         </mat-form-field>
 
         <h4>Ability Scores</h4>
+        <p>Take your character’s ability scores and race into
+          account as you flesh out his or her appearance
+          and personality. A very strong character with low
+          Intelligence might think and behave very differently
+          from a very smart character with low Strength.
+        </p>
+        <p>
+          For example, high Strength usually corresponds
+          with a burly or athletic body, while a character with
+          low Strength might be scrawny or plump.
+        </p>
+        <p>
+          A character with high Dexterity is probably lithe and
+          slim, while a character with low Dexterity might be
+          either gangly and awkward or heavy and thick-fingered.
+        </p>
+        <p>
+          A character with high Constitution usually looks
+          healthy, with bright eyes and abundant energy. A
+          character with low Constitution might be sickly or frail.
+        </p>
+        <p>
+          A character with high Intelligence might be highly
+          inquisitive and studious, while a character with low
+          Intelligence might speak simply or easily forget details.
+        </p>
+        <p>
+          A character with high W isdom has good judgment,
+          empathy, and a general awareness of what’s going on.
+          A character with low Wisdom might be absent-minded,
+          foolhardy, or oblivious.
+        </p>
+        <p>
+          A character with high Charisma exudes confidence,
+          which is usually mixed with a graceful or intimidating
+          presence. A character with a low Charisma might com e
+          across as abrasive, inarticulate, or timid.</p>
         <div class="background abilityScores" formGroupName="scores">
           <mat-form-field>
             <mat-label>Strength</mat-label>
@@ -90,17 +180,7 @@
       </form>
       <form [formGroup]="firstFormGroup.controls.free_choices">
         <div class="background" *ngFor="let choice of free_choices;">
-          <mat-form-field>
-            <mat-label>{{choice.name}}: Choose{{choice.choose}}</mat-label>
-            <mat-select multiple [formControlName]="choice.name">
-              <mat-option *ngFor="let op of choice.from" [value]="op">{{op.name}}</mat-option>
-            </mat-select>
-            <div
-              *ngIf="firstFormGroup.controls.free_choices.controls[choice.name].errors&& firstFormGroup.controls.free_choices.controls[choice.name].errors.maxlength"
-            >
-              Too many options selected, please select atmost {{choice.choose}}
-            </div>
-          </mat-form-field>
+          <app-choicechooser [formControlName]="choice.name" [choice]="choice"></app-choicechooser>
         </div>
       </form>
     </mat-step>
@@ -178,8 +258,10 @@
       </mat-card>
       <div>
         <div> Character is valid {{firstFormGroup.valid}} </div>
-        <button type="submit" [disabled]="!firstFormGroup.valid" (click)="onSubmit()">Submit</button>
+        <div> Character is valid {{firstFormGroup.errors|json}} </div>
+        <button type="submit" (click)="onSubmit()">Submit</button>
       </div>
+      {{firstFormGroup.controls.free_choices.value | json}}
     </mat-step>
   </mat-horizontal-stepper>
 </div>

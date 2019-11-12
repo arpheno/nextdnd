@@ -9,7 +9,8 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatExpansionModule,
-  MatFormFieldModule, MatIconModule,
+  MatFormFieldModule,
+  MatIconModule,
   MatButtonToggleModule,
   MatInputModule,
   MatListModule,
@@ -26,10 +27,6 @@ import {WebsocketService} from './websocket.service';
 import {BoardServiceService} from './board-service.service';
 import {CharactersModule} from './characters/characters.module';
 import {EncountersModule} from './encounters/encounters.module';
-import { PriceidComponent } from './priceid/priceid.component';
-import { FretboardComponent } from './fretboard/fretboard.component';
-import { MetronomeComponent } from './metronome/metronome.component';
-import { UiComponent } from './ui/ui.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 
 @NgModule({
@@ -37,10 +34,6 @@ import { EquipmentComponent } from './equipment/equipment.component';
     AppComponent,
     MonsterComponent,
     AttakComponent,
-    PriceidComponent,
-    FretboardComponent,
-    MetronomeComponent,
-    UiComponent,
     EquipmentComponent,
   ],
   imports: [

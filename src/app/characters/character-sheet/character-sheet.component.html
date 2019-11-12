@@ -1,7 +1,12 @@
-<div >
+<div>
   <h2>Brief Summary</h2>
-  <div *ngIf="character.race">Race: {{character.race}}</div>
-  <div *ngIf="ability_bonuses" style="display:flex;" >
+  <div *ngIf="_race">Race: {{_race.name}}</div>
+  <div *ngIf="_klass">Class: {{_klass.name}}</div>
+  <div *ngIf="_bkg">
+    <div>Background: {{_bkg.name}}</div>
+  </div>
+  <div *ngIf="_alignment">Alignment: {{_alignment.name}}</div>
+  <div *ngIf="ability_bonuses" style="display:flex;">
     <div style="display: flex;flex-direction: column;align-items: center"
          *ngFor="let attribute of ability_bonuses|keyvalue">
       {{attribute.key}}
@@ -15,16 +20,21 @@
     </mat-chip-list>
     <div *ngFor="let x of _traits.items()">
       <h4>{{x[0] | titlecase }}s</h4>
-      <mat-chip *ngFor="let trait of x[1]" [ngClass]="x[0]">
+      <mat-chip *ngFor="let trait of x[1]" [ngClass]="x[0]" [matTooltip]="trait.description">
         {{trait.name}}
       </mat-chip>
     </div>
+    <div *ngIf="_choices">
+      <mat-chip-list>
+      </mat-chip-list>
+      <div>
+        <h4>Choices</h4>
+        <mat-chip *ngFor="let choice of _choices" [ngClass]="x">
+          {{choice.name}}
+        </mat-chip>
+      </div>
+    </div>
   </div>
 
-</div>
-<div [hidden]="!character.category">Class: {{character.category}}</div>
-<div [hidden]="!character.alignment">Alignment: {{character.alignment}}</div>
-<div *ngIf="character.background">
-  <div>Background: {{character.background}}</div>
 </div>
 

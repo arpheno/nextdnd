@@ -6,7 +6,7 @@ export class Character {
     public id: number,
     public name: string,
     public scores: Attributes,
-    public  hitpoints: number,
+    public hitpoints: number,
     public alignment: string,
     public size: string,
     public monster_type: string,

@@ -1,11 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-// @ts-ignore
-import * as background_choices from '../../../assets/raws/backgrounds.json';
 import {DefaultDict} from 'pycollections';
-// @ts-ignore
-import * as races from '../../../assets/raws/5e-SRD-Races.json';
-// @ts-ignore
-import * as classes from '../../../assets/raws/5e-SRD-Classes.json';
 
 interface CharacterParams {
   ability_bonuses: {};
@@ -23,96 +17,74 @@ interface CharacterParams {
   styleUrls: ['./character-sheet.component.scss']
 })
 export class CharacterSheetComponent implements OnInit {
-  public races: [{name}];
-  private backgrounds: [{name}];
-  private _character: CharacterParams;
-  private _traits: DefaultDict;
-  private race: any;
+  @Input()
+  set alignment(value: any) {
+    this._alignment = value || {traits: [], choices: []};
+  }
+
+  @Input()
+  set klass(value: { traits: any[]; choices: any[] }) {
+    this._klass = value || {traits: [], choices: []};
+    this.update();
+  }
+
+  @Input()
+  set bkg(value: any) {
+    this._bkg = value || {traits: [], choices: []};
+    this.update();
+  }
+
+  @Input()
+  set race(value: any) {
+    this._race = value || {traits: [], choices: []};
+    this.ability_bonuses = this._race.ability_bonuses;
+    this.update();
+  }
+
+  _traits: DefaultDict;
+  private _race = {traits: [], choices: [], ability_bonuses:[]};
   private _choices: any[];
-  private classes: {};
-  private klass: any;
+  private _klass = {traits: [], choices: []};
   private ability_bonuses: {};
-  private bkg: any;
+  private _bkg = {traits: [], choices: []};
+
+  ngOnInit() {
+
+  }
 
   constructor() {
   }
 
   @Output() choices = new EventEmitter<object>();
   @Output() traits = new EventEmitter<[{ type, name }]>();
+  private _alignment: any;
 
-  @Input()
-  set character(character: CharacterParams) {
+  update() {
     this._choices = [];
     this._traits = new DefaultDict([].constructor);
-    this.ability_bonuses = {};
-    if (character.race) {
-      this.race = this.races.find(obj => {
-        return obj.name == character.race;
+    [this._klass, this._bkg, this._race].forEach(x => {
+      x.traits.forEach(y => {
+        this._traits.get(y.type).push(y);
       });
-      console.log(this.race)
-      this.ability_bonuses = this.race.ability_bonuses;
-      this.race.traits.forEach(x => {
-        this._traits.get(x.type).push(x);
+      x.choices.forEach(y => {
+        this._choices.push(y);
       });
-      this.race.choices.forEach(x => {
-        this._choices.push(x);
-      });
-    }
-    if (character.category) {
-      this.klass = this.classes[(this.transform_race(character.category))];
-      this.klass.traits.forEach(x => {
-        this._traits.get(x.type).push(x);
-      });
-      this.klass.choices.forEach(x => {
-        this._choices.push(x);
-      });
-
-    }
-    if (character.background) {
-      this.bkg = this.backgrounds.find(obj=>{return obj.name==character.background});
-      this.bkg.traits.forEach(x => {
-        this._traits.get(x.type).push(x);
-      });
-      this.bkg.choices.forEach(x => {
-        this._choices.push(x);
-      });
-    }
-    this._choices.forEach(x => {
-      console.log(JSON.stringify(character.free_choices));
-      if (Object.entries(character.free_choices).length > 0 && character.free_choices[x.name] && character.free_choices[x.name].length > 0) {
-        console.log(character.free_choices[x.name]);
-        let chosen = character.free_choices[x.name];
-        chosen.forEach(x => {
-
-          this._traits.get(x.type).push(x);
-        });
-      } else {
-        this._traits.get('choice').push(x);
-      }
     });
+    // this._choices.forEach(x => {
+    //   console.log(JSON.stringify(character.free_choices));
+    //   if (Object.entries(character.free_choices).length > 0 && character.free_choices[x.name] && character.free_choices[x.name].length > 0) {
+    //     console.log(character.free_choices[x.name]);
+    //     let chosen = character.free_choices[x.name];
+    //     chosen.forEach(x => {
+    //
+    //       this._traits.get(x.type).push(x);
+    //     });
+    //   } else {
+    //     this._traits.get('choice').push(x);
+    //   }
     this.choices.emit(this._choices);
     this.traits.emit(this._traits.items());
-    this._character = character;
+
 
   }
-
-  private transform_race(race: string) {
-    return race.toLowerCase().replace(' ', '_');
-  }
-
-  get character(): CharacterParams {
-    return this._character;
-  }
-
-
-  ngOnInit() {
-    this.races = races.default;
-    this.classes = {};
-    classes.default.forEach(x => {
-      this.classes[x.name] = x;
-    });
-
-    this.backgrounds = background_choices.default
-  }
-
 }

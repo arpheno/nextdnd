@@ -3,17 +3,13 @@ import {FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators}
 import {CharacterService} from '../character.service';
 import {Howl} from 'howler';
 
-// @ts-ignore
-import * as classes from '../../../assets/raws/5e-SRD-Classes.json';
-// @ts-ignore
-import * as races from '../../../assets/raws/5e-SRD-Races.json';
-// @ts-ignore
-import * as alignments from '../../../assets/raws/alignments.json';
-// @ts-ignore
-import * as background_choices from '../../../assets/raws/backgrounds.json';
-import {connectableObservableDescriptor} from 'rxjs/internal/observable/ConnectableObservable';
+
 import {MatDialog, MatRadioChange, MatSelectChange} from '@angular/material';
 import {GreeterComponent} from '../greeter/greeter.component';
+import {alignments} from '../../../assets/raws/alignments';
+import {backgrounds} from '../../../assets/raws/backgrounds';
+import {races} from '../../../assets/raws/5e-SRD-Races';
+import {classes} from '../../../assets/raws/5e-SRD-Classes';
 
 const ScoreValidator: ValidatorFn = (fg: FormGroup) => {
   const current_scores = new Set(['str', 'dex', 'con', 'int', 'wis', 'cha'].map(x => fg.get(x).value));
@@ -30,22 +26,12 @@ const ScoreValidator: ValidatorFn = (fg: FormGroup) => {
 })
 export class CharacterCreateComponent implements OnInit {
   private firstFormGroup: FormGroup;
-  private race_choices: [{ name, description: { main, chapters } }];
-  background_choices: [{ name, description, choices, traits }];
-  private alignment_choices: [{ name, description }];
-  private class_choices: [
-    {
-      name: string,
-      description: {
-        main: string,
-        chapters: string[]
-      }
-    }
-  ];
-  private background_descriptions: {};
+  private race_choices: any;
+  background_choices: any;
+  private alignment_choices: any;
+  private class_choices: any;
   private free_choices: [];
   private traits: [{ type: string, name: string }];
-  private sound: Howl;
   private alignment: { name, description };
   private category: { name, description };
   private background: { name, description };
@@ -83,22 +69,20 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   getRaceChoices() {
-    // this.race_choices = ['human', 'dwarf', 'elf', 'half orc', 'half elf', 'gnome', 'halfling', 'tiefling', 'dragonborn'];
-    this.race_choices = races.default;
-    console.log(this.race_choices);
+    this.race_choices = races;
   }
 
   getBackgroundChoices() {
-    this.background_choices = background_choices.default;
+    this.background_choices = backgrounds;
   }
 
   getClassChoices() {
     // @ts-ignore
-    this.class_choices = classes.default;
+    this.class_choices = classes;
   }
 
   getAlignmentChoices() {
-    this.alignment_choices = alignments.default;
+    this.alignment_choices = alignments;
   }
 
 
@@ -128,7 +112,7 @@ export class CharacterCreateComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(GreeterComponent, {
-      width: '250px',
+      width: '350px',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -138,7 +122,6 @@ export class CharacterCreateComponent implements OnInit {
         'assets/character_create3.mp3',
         'assets/character_create4.mp3',
       ];
-
 
       function autoplay(i, list) {
         var sound = new Howl({
@@ -156,37 +139,33 @@ export class CharacterCreateComponent implements OnInit {
       }
 
       autoplay(0, list);
-
     });
   }
 
   onTraits(traits) {
-
     this.traits = traits;
   }
-
   onAlignnmentChange(event: MatRadioChange) {
     this.alignment = this.alignment_choices.find(obj => {
-      return (obj.name == event.value);
+      return obj.name == this.firstFormGroup.controls.alignment.value;
     });
 
   }
-
   onClassChange(event: MatRadioChange) {
     this.category = this.class_choices.find(obj => {
-      return obj.name == event.value;
+      return obj.name == this.firstFormGroup.controls.category.value;
     });
   }
 
   onBackgroundChange(event: MatRadioChange) {
     this.background = this.background_choices.find(obj => {
-      return obj.name == event.value;
+      return obj.name == this.firstFormGroup.controls.background.value;
     });
   }
 
   onRaceChange(event: MatRadioChange) {
     this.race = this.race_choices.find(obj => {
-      return obj.name == event.value;
+      return obj.name == this.firstFormGroup.controls.race.value;
     });
     console.log(this.race);
 

@@ -1,19 +1,16 @@
-<form>
-  <div class="race">
-    <mat-radio-group [formControl]="gormgroup" (change)="onChange($event)">
-      <mat-radio-button *ngFor="let choice of choices"
-                        [value]="choice.name"
-                        matTooltipShowDelay="300"
-                        [matTooltip]="choice.description.main">
-
-        <div class="container">
-          <div class="LABEL">
-            {{choice.name}}
-          </div>
-          <img src="assets/img/{{prefix}}/{{choice.name | snakecase}}.jpg">
+<div class="race">
+  <form [id]="choices[0].name" *ngIf="choices">
+    <label *ngFor="let choice of choices"
+           matTooltipShowDelay="300"
+           [matTooltip]="choice.description.main">
+      <input type="radio" [formControl]="gormgroup" [value]="choice.name" (change)="onChange($event)">
+      <div class="container">
+        <div class="LABEL">
+          {{choice.name}}
         </div>
-      </mat-radio-button>
+        <img src="assets/img/{{prefix}}/{{choice.name | snakecase}}.jpg">
+      </div>
 
-    </mat-radio-group>
-  </div>
-</form>
+    </label>
+  </form>
+</div>

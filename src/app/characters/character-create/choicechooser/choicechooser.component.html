@@ -1,0 +1,12 @@
+<div>
+  <h2>{{choice.name}}</h2>
+  <h3>Choose {{choice.choose}} options</h3>
+  <div style="display: flex;flex-wrap: wrap" *ngIf="choice.from">
+    <label class="option" *ngFor="let option of choice.from" >
+      <input type="checkbox" name="checkbox" [value]="option" (change)="onCheckChange($event,option)">
+      <div [matTooltip]="obj_to_names(option.contents)">
+        <span>{{option.name}}</span>
+      </div>
+    </label>
+  </div>
+</div>

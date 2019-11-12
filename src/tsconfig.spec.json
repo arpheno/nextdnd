@@ -9,7 +9,8 @@
   },
   "files": [
     "test.ts",
-    "polyfills.ts"
+    "polyfills.ts",
+    "assets/raws/5e-SRD-Races.ts"
   ],
   "include": [
     "**/*.spec.ts",
