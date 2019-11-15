@@ -7,12 +7,12 @@ import {CharactersDetailComponent} from './character-detail/characters-detail.co
 import {
   MatButtonModule,
   MatCardModule, MatDialogModule,
-  MatFormFieldModule,
+  MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatOptionModule,
   MatRadioModule,
   MatSelectModule,
-  MatStepperModule, MatTooltipModule
+  MatStepperModule, MatTabsModule, MatTooltipModule
 } from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
 
@@ -43,7 +43,7 @@ import { ChoicechooserComponent } from './character-create/choicechooser/choicec
     MatFormFieldModule,
     FormsModule,
     MatCardModule,
-    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule, TooltipModule
+    MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule, TooltipModule, MatTabsModule, MatIconModule
   ],
   entryComponents: [GreeterComponent]
 

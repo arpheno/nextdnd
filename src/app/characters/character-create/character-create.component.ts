@@ -33,9 +33,14 @@ export class CharacterCreateComponent implements OnInit {
   private free_choices: [];
   private traits: [{ type: string, name: string }];
   private alignment: { name, description };
-  private category: { name, description };
-  private background: { name, description };
-  private race: { name; description: { main; chapters } };
+  private category: {
+    hit_die: number;
+    name, description
+  };
+  private background: { name, description, characteristics };
+  private race: {
+    speed: string;
+    name; description: { main; chapters }, ability_bonuses };
 
   constructor(private _formBuilder: FormBuilder,
               private characterService: CharacterService,
@@ -52,6 +57,10 @@ export class CharacterCreateComponent implements OnInit {
       name: ['', Validators.required],
       race: ['', Validators.required],
       background: ['', Validators.required],
+      personality_trait: ['', Validators.required],
+      flaw: ['', Validators.required],
+      ideal: ['', Validators.required],
+      bond: ['', Validators.required],
       alignment: ['', Validators.required],
       category: ['', Validators.required],
       scores: this._formBuilder.group({ // make a nested group
@@ -98,14 +107,22 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    let stat_to_modifier = [ -5, -5, -4, -4, -3, -3, -2, -2, -1, -1, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 10, 10, ]
 
+    let scores = {...this.firstFormGroup.controls.scores.value};
+    for (const [key, value] of Object.entries(this.race.ability_bonuses)) {
+      scores[key] = scores[key] + value;
+    }
     const derived = {
-      // @ts-ignore
+      scores: scores,
       traits: this.traits.flatMap(x => {
         return x[1];
-      })
+      }),
+      max_hitpoints: this.category.hit_die + stat_to_modifier[scores.con],
+      speed:this.race.speed
     };
     const submission = {...this.firstFormGroup.value, ...derived};
+    console.log(submission)
     this.characterService.characterCreate(submission).subscribe();
   }
 
@@ -143,14 +160,17 @@ export class CharacterCreateComponent implements OnInit {
   }
 
   onTraits(traits) {
+    console.log(traits);
     this.traits = traits;
   }
+
   onAlignnmentChange(event: MatRadioChange) {
     this.alignment = this.alignment_choices.find(obj => {
       return obj.name == this.firstFormGroup.controls.alignment.value;
     });
 
   }
+
   onClassChange(event: MatRadioChange) {
     this.category = this.class_choices.find(obj => {
       return obj.name == this.firstFormGroup.controls.category.value;
@@ -169,5 +189,11 @@ export class CharacterCreateComponent implements OnInit {
     });
     console.log(this.race);
 
+  }
+
+  random_assign(characteristic: any, charac: string) {
+    var item = characteristic[Math.floor(Math.random() * characteristic.length)];
+
+    this.firstFormGroup.controls[charac].setValue(item);
   }
 }

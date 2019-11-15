@@ -1,11 +1,9 @@
-<div style="display: flex;flex-direction: column">
-  <mat-form-field>
-    <input [(ngModel)]="character.name" matInput placeholder="name" type="text">
-  </mat-form-field>
-  <div>
-    <div>
-      AC: {{ character.ac[0] }} Armor Type: {{character.ac[1]}}
-    </div>
+<mat-tab-group mat-stretch-tabs *ngIf="character">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">shopping_cart</mat-icon>
+      Inventory
+    </ng-template>
     <mat-form-field>
       <mat-label>Equipped armor</mat-label>
       <mat-select (selectionChange)="update_armor($event)" [(value)]="character.armor">
@@ -14,70 +12,85 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <mat-label>Equipped Weapon</mat-label>
-      <mat-select (selectionChange)="update_weapon($event)" >
-        <mat-option *ngFor="let weapon of weapon_choices" [value]="weapon.id">
-          {{ weapon.name}} +{{weapon.magical_bonus}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <mat-form-field>
-    <input [(ngModel)]="character.race" matInput placeholder="Race" type="text">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="character.category" matInput placeholder="Class" type="text">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="character.alignment" matInput placeholder="alignment" type="text">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="character.level" matInput placeholder="level" type="number" (input)="updateCharacter(character)">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="character.experience" matInput placeholder="experience" type="number">
-  </mat-form-field>
-  <mat-form-field>
-    <input [(ngModel)]="character.gold" matInput placeholder="gold" type="number">
-  </mat-form-field>
+    <div  *ngFor="let w of character.weapon_set; index as i">
+      <mat-form-field>
+        <mat-label>Equipped Weapon</mat-label>
+        <mat-select (selectionChange)="update_weapon($event,i)" [(value)]="w">
+          <mat-option *ngFor="let weapon of weapon_choices" [value]="weapon.id">
+            {{ weapon.name}} +{{weapon.magical_bonus}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-  <div>
-    <mat-form-field *ngFor="let attr of character.scores | keyvalue">
-      <input [(ngModel)]="character.scores[attr.key]" [placeholder]="attr.key" matInput type="number">
-    </mat-form-field>
+      <mat-icon class="example-tab-icon"(click)="remove_weapon(i)">close</mat-icon>
+    </div>
 
-  </div>
-  <button (click)="updateCharacter(character)" mat-button>Update</button>
-</div>
-<div>
-  <div *ngFor="let level of levels">
-    <h3>Level {{level.level}}</h3>
-    <h4>Features</h4>
+      <mat-form-field>
+        <mat-label>Equipped Weapon</mat-label>
+        <mat-select (selectionChange)="update_weapon($event)">
+          <mat-option *ngFor="let weapon of weapon_choices" [value]="weapon.id">
+            {{ weapon.name}} +{{weapon.magical_bonus}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <div style="display: flex;flex-wrap: wrap">
+      <div *ngFor="let gear of character.adventuringgear_set" [matTooltip]="gear.description" class="spell">
+        {{gear.name}}
+      </div>
+    </div>
+  </mat-tab>
 
-    <div style="display: flex">
-      <div *ngFor="let feature of level.features">
-        <h5 [mdePopoverTriggerFor]="featurepop" mdePopoverTriggerOn="hover">{{feature.name}}</h5>
-        <mde-popover #featurepop="mdePopover" [mdePopoverOverlapTrigger]="false">
-          <mat-card>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">perm_identity</mat-icon>
+      Main
+    </ng-template>
+    <div>{{character.name}} level {{character.level}} {{character.race}} {{character.category}}</div>
+    <div>{{character.alignment}}</div>
+    <!--    <div>{{character.background}}</div>-->
+    <div>
+      <div>Experience:{{character.experience}}</div>
+      <div>Gold: {{character.gold}}</div>
+    </div>
+    <div style="display:flex">
 
-            <p *ngFor="let d of feature.desc">{{d}}</p>
-          </mat-card>
-        </mde-popover>
+      <div class="attributes" style=""
+           *ngFor="let attribute of character.scores|keyvalue">
+        {{attribute.key}}
+        <button mat-mini-fab [ngClass]="attribute.key">
+          {{attribute.value}}
+        </button>
+      </div>
+    </div>
+    <div> AC: {{ character.ac[0] }} </div>
+    <div>
+      <div *ngFor="let trait_type of traits.items()">
+        <h3>{{trait_type[0]}}</h3>
+        <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let trait of trait_type[1]" class="spell">
+          {{trait.name}}
+        </div>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon class="example-tab-icon">school</mat-icon>
+      Spellcasting
+    </ng-template>
+    <div class="known_spells">
+      <h4>Spells known</h4>
+      <div *ngFor="let spell of character.known_spells" class="spell" [matTooltip]="spell.description">
+        <div class="spell_name">{{spell.name}}</div>
+        <div>Level {{spell.level}} {{spell.school}}</div>
+        <div>Range:{{spell.range}}</div>
+        <div *ngIf="spell.concentration" class="concentration">Concentration</div>
+        <div *ngIf="spell.ritual" class="concentration">Ritual</div>
       </div>
     </div>
 
-    <div style="display: flex">
-      <div *ngFor="let feature of level.feature_choices">
-        <h5 [mdePopoverTriggerFor]="featurepop" mdePopoverTriggerOn="hover">{{feature.name}}</h5>
-        <mde-popover #featurepop="mdePopover" [mdePopoverOverlapTrigger]="false">
-          <mat-card>
+  </mat-tab>
+</mat-tab-group>
 
-            <p *ngFor="let d of feature.desc">{{d}}</p>
-          </mat-card>
-        </mde-popover>
-      </div>
-    </div>
-
-  </div>
-</div>

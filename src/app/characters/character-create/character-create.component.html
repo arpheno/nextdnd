@@ -75,7 +75,7 @@
                          [gormgroup]="firstFormGroup.controls.category"
                          [choices]="class_choices"
                          prefix="classes"
-                         (change)="onClassChage($event)">
+                         (change)="onClassChange($event)">
       </app-picture-radio>
 
     </mat-step>
@@ -254,6 +254,24 @@
           </mat-card>
           <h3>More questions</h3>
           <div>{{category.description.create}}</div>
+        </mat-card-content>
+      </mat-card>
+      <mat-card *ngIf="background">
+        <h3>Charactistics</h3>
+        <mat-card-content>
+          <form  [formGroup]="firstFormGroup">
+          <div>
+            {{background.characteristics.description}}
+          </div>
+          <div *ngFor="let charac of ['personality_trait','bond','flaw','ideal']">
+            <h4>{{charac}}</h4>
+            <mat-form-field>
+              <input matInput [placeholder]="charac" [formControlName]="charac" required>
+            </mat-form-field>
+            <button (click)="random_assign(background.characteristics[charac],charac)">Random</button>
+
+          </div>
+          </form>
         </mat-card-content>
       </mat-card>
       <div>

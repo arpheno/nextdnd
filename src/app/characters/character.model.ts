@@ -19,7 +19,13 @@ export class Character {
     public experience: number,
     public modifiers: Attributes,
     public ac: number,
-    public armor: number) {
+    public armor: number,
+    public known_spells: any,
+    public traits: any,
+  public weapon_set: any,
+
+  public adventuringgear_set: any
+) {
   }
 
 }

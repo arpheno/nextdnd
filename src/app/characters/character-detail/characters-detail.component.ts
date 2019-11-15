@@ -7,6 +7,7 @@ import {LevelService} from '../../level.service';
 import {ArmorService} from '../../equipment/armor.service';
 import {Armor, Weapon} from '../../equipment/equipment.models';
 import {WeaponService} from '../../equipment/weapon.service';
+import {DefaultDict} from 'pycollections';
 
 @Component({
   selector: 'app-character-detail',
@@ -15,11 +16,12 @@ import {WeaponService} from '../../equipment/weapon.service';
 })
 export class CharactersDetailComponent implements OnInit {
   // @ts-ignore
-  private character: Character = {};
+  private character: Character = undefined;
   private character$: Observable<Character>;
   levels = [];
   public armor_choices: Armor[] = [];
   private weapon_choices: Weapon[];
+  private traits: DefaultDict;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,8 +44,11 @@ export class CharactersDetailComponent implements OnInit {
 
   private refresh() {
     this.character$.subscribe(next => {
-      console.log(next);
       this.character = next;
+      this.traits = new DefaultDict([].constructor);
+      this.character.traits.forEach(x=>{
+        this.traits.get(x.type).push(x);
+      });
       this.getArmorChoices();
       this.getWeaponChoices();
       this.getLevelInformation();
@@ -71,19 +76,34 @@ export class CharactersDetailComponent implements OnInit {
   }
 
   updateCharacter(character: Character) {
-    this.characterService.characterUpdate(character).subscribe(next=>{
+    this.characterService.characterUpdate(character).subscribe(next => {
       this.refresh();
     });
 
   }
 
-  update_weapon(event) {
-    //this.character.weapon=event.value
+  update_weapon(event, index = null) {
+    if (!index) {
+      this.character.weapon_set.push(event.value);
+    } else {
+      this.character.weapon_set[index] = event.value;
+    }
+    this.characterService.characterPartialUpdate(this.character, 'weapon_set').subscribe(next => {
+      this.refresh();
+    });
   }
 
   update_armor(event) {
     this.character.armor = event.value;
-    this.updateCharacter(this.character);
+    this.characterService.characterPartialUpdate(this.character, 'armor').subscribe(next => {
+      this.refresh();
+    });
+  }
 
+  remove_weapon(index: number) {
+    this.character.weapon_set.pop(index);
+    this.characterService.characterPartialUpdate(this.character, 'weapon_set').subscribe(next => {
+      this.refresh();
+    });
   }
 }

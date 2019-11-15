@@ -48,4 +48,9 @@ export class CharacterService {
   characterUpdate(character: Character) {
     return this.httpClient.put(`${this.API_URL}/${character.id}/`, character);
   }
+  characterPartialUpdate(character: Character,attribute) {
+    let payload = {};
+    payload[attribute]= character[attribute];
+    return this.httpClient.patch(`${this.API_URL}/${character.id}/`, payload);
+  }
 }
