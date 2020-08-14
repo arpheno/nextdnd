@@ -1,40 +1,31 @@
-<div>
-  <h2>Brief Summary</h2>
-  <div *ngIf="_race">Race: {{_race.name}}</div>
-  <div *ngIf="_klass">Class: {{_klass.name}}</div>
-  <div *ngIf="_bkg">
-    <div>Background: {{_bkg.name}}</div>
+<h2 matTooltip="hello">Brief Summary</h2>
+<div *ngIf="_race">Race: {{_race.name}}</div>
+<div *ngIf="_klass">Class: {{_klass.name}}</div>
+<div *ngIf="_bkg">
+  <div>Background: {{_bkg.name}}</div>
+</div>
+<div *ngIf="_alignment">Alignment: {{_alignment.name}}</div>
+<div *ngIf="ability_bonuses" style="display:flex;">
+  <div style="display: flex;flex-direction: column;align-items: center"
+       *ngFor="let attribute of ability_bonuses|keyvalue">
+    {{attribute.key}}
+    <button mat-mini-fab [ngClass]="attribute.key">
+      +{{attribute.value}}
+    </button>
   </div>
-  <div *ngIf="_alignment">Alignment: {{_alignment.name}}</div>
-  <div *ngIf="ability_bonuses" style="display:flex;">
-    <div style="display: flex;flex-direction: column;align-items: center"
-         *ngFor="let attribute of ability_bonuses|keyvalue">
-      {{attribute.key}}
-      <button mat-mini-fab [ngClass]="attribute.key">
-        +{{attribute.value}}
-      </button>
+</div>
+<div *ngIf="_traits">
+  <div *ngFor="let x of traititems">
+    <h4>{{x[0] | titlecase }}s</h4>
+    <div *ngFor="let trait of x[1]">
+      <span [tooltip]="trait.desc">{{trait.name}}</span>
     </div>
   </div>
-  <div *ngIf="_traits">
-    <mat-chip-list>
-    </mat-chip-list>
-    <div *ngFor="let x of _traits.items()">
-      <h4>{{x[0] | titlecase }}s</h4>
-      <mat-chip *ngFor="let trait of x[1]" [ngClass]="x[0]" [matTooltip]="trait.description">
-        {{trait.name}}
-      </mat-chip>
-    </div>
-    <div *ngIf="_choices">
-      <mat-chip-list>
-      </mat-chip-list>
-      <div>
-        <h4>Choices</h4>
-        <mat-chip *ngFor="let choice of _choices" [ngClass]="x">
-          {{choice.name}}
-        </mat-chip>
-      </div>
-    </div>
-  </div>
-
 </div>
 
+<div *ngIf="_choices">
+  <h4>Choices</h4>
+  <mat-chip *ngFor="let choice of _choices" [tooltip]="choice.desc">
+    {{choice.name}}
+  </mat-chip>
+</div>

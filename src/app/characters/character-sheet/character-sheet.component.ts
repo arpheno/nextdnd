@@ -33,7 +33,6 @@ export class CharacterSheetComponent implements OnInit {
     this._bkg = value || {traits: [], choices: []};
     this.update();
   }
-
   @Input()
   set race(value: any) {
     this._race = value || {traits: [], choices: []};
@@ -58,6 +57,7 @@ export class CharacterSheetComponent implements OnInit {
   @Output() choices = new EventEmitter<object>();
   @Output() traits = new EventEmitter<[{ type, name }]>();
   private _alignment: any;
+  private traititems: any[];
 
   update() {
     this._choices = [];
@@ -85,6 +85,7 @@ export class CharacterSheetComponent implements OnInit {
     this.choices.emit(this._choices);
     this.traits.emit(this._traits.items());
 
+    this.traititems = [...this._traits.items()]
 
   }
 }

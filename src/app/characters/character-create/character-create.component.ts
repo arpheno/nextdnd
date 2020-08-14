@@ -113,11 +113,10 @@ export class CharacterCreateComponent implements OnInit {
     for (const [key, value] of Object.entries(this.race.ability_bonuses)) {
       scores[key] = scores[key] + value;
     }
+    console.log(this.firstFormGroup);
     const derived = {
       scores: scores,
-      traits: this.traits.flatMap(x => {
-        return x[1];
-      }),
+      traits: [...this.traits.flatMap(x => { return x[1]; }),...Object.values(this.firstFormGroup.value.free_choices).flat()],
       max_hitpoints: this.category.hit_die + stat_to_modifier[scores.con],
       speed:this.race.speed
     };
@@ -187,7 +186,6 @@ export class CharacterCreateComponent implements OnInit {
     this.race = this.race_choices.find(obj => {
       return obj.name == this.firstFormGroup.controls.race.value;
     });
-    console.log(this.race);
 
   }
 

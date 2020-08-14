@@ -23,8 +23,9 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
 import { GreeterComponent } from './greeter/greeter.component';
 import { PictureRadioComponent } from './character-create/picture-radio/picture-radio.component';
 import {MdePopoverModule} from '@material-extended/mde';
-import {TooltipModule} from 'ngx-tooltip';
 import { ChoicechooserComponent } from './character-create/choicechooser/choicechooser.component';
+import { LevelupComponent } from './levelup/levelup.component';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 @NgModule({
   declarations: [
@@ -36,12 +37,14 @@ import { ChoicechooserComponent } from './character-create/choicechooser/choicec
     GreeterComponent,
     PictureRadioComponent,
     ChoicechooserComponent,
+    LevelupComponent,
   ],
   imports: [
     CommonModule,
     CharactersRoutingModule,
     MatFormFieldModule,
     FormsModule,
+    TooltipModule,
     MatCardModule,
     MatInputModule, MatOptionModule, MatSelectModule, MatStepperModule, ReactiveFormsModule, MatRadioModule, MatButtonModule, MatChipsModule, MatDialogModule, MdePopoverModule, MatTooltipModule, TooltipModule, MatTabsModule, MatIconModule
   ],

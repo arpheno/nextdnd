@@ -14,7 +14,7 @@
         intelligent humanoid species in the D&D world. The
         most common player character races are dwarves, elves,
         halflings, and humans. Some races also have subraces,
-        such as mountain dw arf or w ood elf. Chapter 2 provides
+        such as mountain dwarf or wood elf. The book provides
         more information about these races, as well as the less
         widespread races of dragonborn, gnomes, half-elves,
         half-orcs, and tieflings.
@@ -27,21 +27,12 @@
         and ancestry. Your character’s race grants particular
         racial traits, such as special senses, proficiency with
         certain weapons or tools, proficiency in one or m ore
-        skills, or the ability to use minor spells. These traits
-        sometimes dovetail with the capabilities of certain
-        classes (see step 2). For example, the racial traits of
-        lightfoot halflings make them exceptional rogues, and
-        high elves tend to be powerful wizards. Sometimes
-        playing against type can be fun, too. Half-orc paladins
-        and mountain dwarf wizards, for example, can be
-        unusual but memorable characters.
+        skills, or the ability to use minor spells.
       </p>
       <p>
-        Your race also increases one or m ore of your ability
-        scores. Note these increases and remember to apply them later.
-        Record the traits granted by your race on your
-        character sheet. Be sure to note your starting
-        languages and your base speed as well.
+        Your race also increases one or more of your ability
+        scores.
+
       </p>
       <app-picture-radio class="race"
                          [gormgroup]="firstFormGroup.controls.race"
@@ -279,7 +270,6 @@
         <div> Character is valid {{firstFormGroup.errors|json}} </div>
         <button type="submit" (click)="onSubmit()">Submit</button>
       </div>
-      {{firstFormGroup.controls.free_choices.value | json}}
     </mat-step>
   </mat-horizontal-stepper>
 </div>

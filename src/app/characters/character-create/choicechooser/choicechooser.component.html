@@ -1,10 +1,10 @@
 <div>
-  <h2>{{choice.name}}</h2>
+  <h2 tooltip="Simple and <b>bold text</b>">{{choice.name}}</h2>
   <h3>Choose {{choice.choose}} options</h3>
   <div style="display: flex;flex-wrap: wrap" *ngIf="choice.from">
     <label class="option" *ngFor="let option of choice.from" >
       <input type="checkbox" name="checkbox" [value]="option" (change)="onCheckChange($event,option)">
-      <div [matTooltip]="obj_to_names(option.contents)">
+      <div [tooltip]="obj_to_names(option)">
         <span>{{option.name}}</span>
       </div>
     </label>
